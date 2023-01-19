@@ -1,6 +1,7 @@
 import * as S from './styles'
 import ReviewItem from '../../ReviewItem'
 import useModal from '../../../hooks/useModal'
+import CloseModalButton from '../../UI_Kit/CloseModalButton'
 
 const Reviews = () => {
     const { handleActive } = useModal()
@@ -8,9 +9,7 @@ const Reviews = () => {
     return (
         <S.ReviewsContent>
             <S.ReviewsTitle>Отзывы о товаре</S.ReviewsTitle>
-            <S.CloseBtn onClick={handleActive}>
-                <S.BtnCloseLine />
-            </S.CloseBtn>
+            <CloseModalButton handler={handleActive}/>
             <S.ReviewsScroll>
                 <S.NewArtForm>
                     <S.NewArtBlock>
