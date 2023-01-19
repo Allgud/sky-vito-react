@@ -16,6 +16,7 @@ export const SearchForm = styled.form`
     max-width: 1044px;
     width: 100%;
     display: flex;
+    gap: 10px;
 `
 
 export const SearchInput = styled.input`

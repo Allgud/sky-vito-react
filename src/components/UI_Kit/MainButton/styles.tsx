@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const MainButton = styled.button`
-    margin-left: 10px;
     height: 50px;
     background-color: #009EE4;
     border: 1px solid #009EE4;

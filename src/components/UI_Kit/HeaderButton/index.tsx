@@ -1,12 +1,15 @@
+import useModal from '../../../hooks/useModal'
 import * as S from './styles'
 
-interface ButtonTitle {
-    title: String
+type ButtonTitle = {
+    title: string
 }
 
 const HeaderButton = ({title}:ButtonTitle) => {
+    const { handleActive } = useModal()
+
     return (
-        <S.HeaderButton>{title}</S.HeaderButton>
+        <S.HeaderButton onClick={handleActive}>{title}</S.HeaderButton>
     )
 }
 

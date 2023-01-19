@@ -1,9 +1,14 @@
 import SearchBox from "../../components/SearchBox"
 import PageTitle from "../../components/PageTitle"
 import GoodCard from "../../components/GoodCard"
+import Modal from '../../components/Modal'
+import SignIn from "../../components/Modals/SignIn"
 import * as S from './styles'
+import useModal from "../../hooks/useModal"
 
 const MainPage = () => {
+    const { active } = useModal()
+
     return (
         <>
             <SearchBox />
@@ -21,6 +26,9 @@ const MainPage = () => {
                     </S.ContentCards>
                 </S.MainContent>
             </S.MainContainer>
+            {
+                active && <Modal><SignIn /></Modal>
+            }
         </>  
     )
 }
