@@ -50,12 +50,7 @@ export const FormBlockLabel = styled.label`
 `
 
 export const FormBlockInputPrice = styled.input`
-    padding: 13px 19px;
-    background: #FFFFFF;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 6px;
-    font-size: 16px;
-    line-height: 1;
+    ${FormBlockElement}
 `
 
 export const FormBlockInput = styled.input`
@@ -89,4 +84,25 @@ export const FormBlockArea = styled.textarea`
         line-height: 24px;
         color: #0000004D;
     }
+`
+
+export const ImagesTitle = styled.p`
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000; 
+    margin-bottom: 10px;
+`
+
+export const ImagesTitleSpan = styled.span`
+    margin-left: 10px;
+    color: rgba(0, 0, 0, 0.3);
+`
+
+export const ImagesBar = styled.div`
+    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    overflow: hidden;
 `

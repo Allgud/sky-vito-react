@@ -127,21 +127,6 @@ export const ArtBlockArea = styled.textarea`
     }
 `
 
-export const ArtBlockButton = styled.button`
-    width: 181px;
-    height: 50px;
-    background: #D9D9D9;
-    border: 1px solid #D9D9D9;
-    border-radius: 6px;
-    font-size: 16px;
-    line-height: 24px;
-    color: #FFFFFF;
-
-    :hover {
-        background-color: #0080C1;
-    }
-`
-
 export const ReviewsList = styled.ul`
     width: 100%;
     height: 495px;

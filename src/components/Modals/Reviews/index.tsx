@@ -2,6 +2,7 @@ import * as S from './styles'
 import ReviewItem from '../../ReviewItem'
 import useModal from '../../../hooks/useModal'
 import CloseModalButton from '../../UI_Kit/CloseModalButton'
+import PublishButton from '../../UI_Kit/PublishButton'
 
 const Reviews = () => {
     const { handleActive } = useModal()
@@ -20,7 +21,7 @@ const Reviews = () => {
                             placeholder="Введите описание"
                         />
                     </S.NewArtBlock>
-                    <S.ArtBlockButton>Опубликовать</S.ArtBlockButton>
+                    <PublishButton />
                 </S.NewArtForm>
                 <S.ReviewsList>
                     <ReviewItem 

@@ -58,7 +58,7 @@ const ArticlePage = () => {
         {
             active &&
             <Modal>
-                <Reviews />
+                <Reviews /> 
             </Modal> 
         }
         </> 
