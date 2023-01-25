@@ -1,8 +1,8 @@
-import { ReactElement } from 'react'
+import { ReactNode } from 'react'
 import * as S from './styles'
 
 type ModalChildren = {
-    children: ReactElement
+    children: ReactNode
 }
 
 const Modal = ({children}:ModalChildren) => {

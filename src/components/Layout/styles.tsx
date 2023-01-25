@@ -11,14 +11,14 @@ export const Wrapper = styled.div<FixedLayout>`
     background-color: #F1F1F1;
     display: flex;
     flex-direction: column;
-    position: ${props => props.$active && 'fixed'}
+    position: ${props => props.$active && 'fixed'}; 
 `
 
 export const Container = styled.div`
     max-width: 1440px;
     width: 100%;        
     margin: 0 auto;    
-    background-color: #FFFFFF;  
+    background-color: #FFFFFF;
 `
 
 export const Main = styled.main``

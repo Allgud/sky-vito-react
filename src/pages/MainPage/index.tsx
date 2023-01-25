@@ -26,9 +26,6 @@ const MainPage = () => {
                     </S.ContentCards>
                 </S.MainContent>
             </S.MainContainer>
-            {
-                active && <Modal><SignIn /></Modal>
-            }
         </>  
     )
 }

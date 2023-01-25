@@ -3,17 +3,19 @@ import PageMenu from '../../components/PageMenu'
 import ArticleImageBox from '../../components/ArticleImageBlock'
 import ShowPhoneButton from '../../components/UI_Kit/ShowPhoneButton'
 import UserArticleButtons from '../../components/UserArticleButtons'
-import Modal from '../../components/Modal'
-import Reviews from '../../components/Modals/Reviews'
 import { Link } from 'react-router-dom'
 import useModal from '../../hooks/useModal'
+import { MouseEvent } from 'react'
 
 const ArticlePage = () => {
-    const { active, handleActive } = useModal()
+    const { getModal } = useModal()
     const isUserArticle = false
 
+    const handleClick = (evt:MouseEvent) => {
+        getModal(evt)
+    }
+
     return (
-        <>
         <S.ArticleBlock>
             <PageMenu />
             <S.ArticleContent>
@@ -24,7 +26,12 @@ const ArticlePage = () => {
                         <S.ArticleInfo>
                             <S.ArticleDate>Сегодня в 10:45</S.ArticleDate>
                             <S.ArticleCity>Санкт-Петербург</S.ArticleCity>
-                            <S.ArticleLink onClick={handleActive}>23 отзыва</S.ArticleLink>
+                            <S.ArticleLink
+                                id='reviews' 
+                                onClick={(evt) => handleClick(evt)}
+                            >
+                                23 отзыва
+                            </S.ArticleLink>
                         </S.ArticleInfo>
                         <S.ArticlePrice>2 200 ₽</S.ArticlePrice>
                         {
@@ -55,13 +62,6 @@ const ArticlePage = () => {
                     </S.ArticleDescriptionContent>
                 </S.ArticleDescriptionBlock>
         </S.ArticleBlock>
-        {
-            active &&
-            <Modal>
-                <Reviews /> 
-            </Modal> 
-        }
-        </> 
     )
 }
 

@@ -5,12 +5,12 @@ import CloseModalButton from '../../UI_Kit/CloseModalButton'
 import PublishButton from '../../UI_Kit/PublishButton'
 
 const Reviews = () => {
-    const { handleActive } = useModal()
+    const { close} = useModal()
 
     return (
         <S.ReviewsContent>
             <S.ReviewsTitle>Отзывы о товаре</S.ReviewsTitle>
-            <CloseModalButton handler={handleActive}/>
+            <CloseModalButton handler={close}/>
             <S.ReviewsScroll>
                 <S.NewArtForm>
                     <S.NewArtBlock>

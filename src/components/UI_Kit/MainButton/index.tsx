@@ -1,7 +1,7 @@
 import * as S from './styles'
 
-interface ButtonTitle {
-    title: String
+type ButtonTitle = {
+    title: string
 }
 
 const MainButton = ({title}:ButtonTitle) => {

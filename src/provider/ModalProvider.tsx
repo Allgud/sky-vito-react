@@ -1,4 +1,7 @@
-import { useState, createContext, ReactNode } from "react";
+import { useState, createContext, ReactNode, MouseEvent, useEffect } from "react";
+import AddEditArticle from "../components/Modals/AddEditArticle";
+import Reviews from "../components/Modals/Reviews";
+import SignIn from "../components/Modals/SignIn";
 
 type ContextChildren = {
     children: ReactNode
@@ -6,25 +9,50 @@ type ContextChildren = {
 
 interface MContext {
     active: boolean,
-    handleActive: () => void
+    currentModal: ReactNode,
+    close: () => void,
+    getModal: (arg0: MouseEvent) => void
 }
 
 export const ModalContext = createContext<MContext>({
     active: false,
-    handleActive: () => {}
+    currentModal: <></>,
+    close: () => { },
+    getModal: (arg0) => { }
 })
 
-const ModalProvider = ({children}:ContextChildren) => {
+const ModalProvider = ({ children }: ContextChildren) => {
     const [active, setActive] = useState(false)
+    const [currentModal, setCurrentModal] = useState(<></>)
 
-    const handleActive = () => {
-        setActive(prev => !prev)
+    const closeModal = () => setActive(false)
+
+    const getModal = (evt: MouseEvent) => {
+        const id = evt.currentTarget.id
+        if (id === 'link') {
+            return
+        }
+        if (id === 'reviews') {
+            setCurrentModal(<Reviews />)
+        }
+        if (id === 'signin') {
+            setCurrentModal(<SignIn />)
+        }
+        if (id === 'addArt') {
+            setCurrentModal(<AddEditArticle modalTitle="Новое объявление" />)
+        }
+        setActive(true)
     }
 
-    const value:MContext = {active, handleActive}
+    const props = {
+        active,
+        currentModal,
+        close: closeModal,
+        getModal
+    }
 
     return (
-        <ModalContext.Provider value={value}>
+        <ModalContext.Provider value={props}>
             {children}
         </ModalContext.Provider>
     )

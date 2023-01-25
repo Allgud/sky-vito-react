@@ -16,12 +16,12 @@ type AddEditProps = {
 }
  
 const AddEditArticle = ({modalTitle, artTitle, text}:AddEditProps) => {
-    const { handleActive } = useModal()
+    const { close } = useModal()
 
     return (
         <S.AddEditContent>
             <S.AddEditTitle>{modalTitle}</S.AddEditTitle>
-            <CloseModalButton handler={handleActive}/>
+            <CloseModalButton handler={close}/>
             <S.AddEditForm>
                 <S.FormBlock>
                     <S.FormBlockLabel htmlFor='name'>Название</S.FormBlockLabel>
@@ -43,8 +43,7 @@ const AddEditArticle = ({modalTitle, artTitle, text}:AddEditProps) => {
                 </S.FormBlock>
                 <S.FormBlock>
                     <S.ImagesTitle>
-                        Фотографии товара
-                        <S.ImagesTitleSpan>не более 5 фотографий</S.ImagesTitleSpan>
+                        Фотографии товара<S.ImagesTitleSpan>не более 5 фотографий</S.ImagesTitleSpan>
                     </S.ImagesTitle>
                     <S.ImagesBar>
                         <ImagesBarItem />
