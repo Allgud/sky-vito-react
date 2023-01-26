@@ -1,13 +1,22 @@
+import { useEffect } from "react"
+import { getAllAds } from "../../store/slices/adsSlice"
+import { useAppSelector } from "../../hooks/useAppSelector"
+import { useAppDispatch } from "../../hooks/useAppDispatch"
 import SearchBox from "../../components/SearchBox"
 import PageTitle from "../../components/PageTitle"
 import GoodCard from "../../components/GoodCard"
-import Modal from '../../components/Modal'
-import SignIn from "../../components/Modals/SignIn"
 import * as S from './styles'
-import useModal from "../../hooks/useModal"
+import { dateFormatter } from "../../constants/dateFormatter"
+import { ucFirst } from "../../constants/ucFirst"
+import { createLink } from "../../constants/createLink"
 
 const MainPage = () => {
-    const { active } = useModal()
+    const { allGoods } = useAppSelector(state => state.ads)
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(getAllAds())
+    }, [])
 
     return (
         <>
@@ -16,13 +25,20 @@ const MainPage = () => {
                 <PageTitle title="Объявления" />
                 <S.MainContent>
                     <S.ContentCards>
-                        <GoodCard 
-                            imgUrl=""
-                            title="Ракетка для большого тенниса Triumph Pro ST"
-                            price="2 200 ₽"
-                            place="Санкт Петербург"
-                            date="Сегодня в 10:45"
-                        />
+                        {
+                            allGoods.map(good => {
+                                return (
+                                    <GoodCard
+                                        key={good.id} 
+                                        title={ucFirst(good.title)}
+                                        price={good.price}
+                                        date={dateFormatter(good.created_on)}
+                                        place={good.user.city}
+                                        imgUrl={createLink(good.images)}
+                                />
+                                )
+                            })
+                        }
                     </S.ContentCards>
                 </S.MainContent>
             </S.MainContainer>

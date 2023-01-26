@@ -29,7 +29,7 @@ export const CardContent = styled.div``
 export const CardTitle = styled.h3`
     height: 52px;
     font-size: 22px;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 26px;
     color: #009EE4;
     margin-bottom: 10px;
@@ -44,6 +44,7 @@ export const CardPrice = styled.p`
     font-weight: 500;
     line-height: 33px;
     margin-bottom: 10px;
+    font-weight: 700;
 `
 
 export const CardPlace = styled.p`
