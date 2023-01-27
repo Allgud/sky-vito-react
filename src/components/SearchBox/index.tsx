@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useLayoutEffect, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import * as S from './styles'
 import Logo from '../Logo'
 import MainButton from '../UI_Kit/MainButton'

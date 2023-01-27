@@ -1,34 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
-import axios, { AxiosResponse } from 'axios'
-import { GoodImage } from '../../types'
-
-type User = {
-    userId: number,
-    name: string,
-    email: string,
-    city: string,
-    avatar: string,
-    salesFrom: string,
-    phone: string,
-}
-
-type Good = {
-    title: string,
-    description: string,
-    price: number,
-    id: number,
-    images: Array<GoodImage>,
-    userId: number,
-    created_on: string,
-    user: User,
-}
-
-type AdsState = {
-    allGoods: Good[],
-    appGoods: Good[],
-    loading: boolean,
-    error: string | null,
-}
+import axios from 'axios'
+import { Good, AdsState } from '../../types'
 
 const initialState:AdsState = {
    allGoods: [],
