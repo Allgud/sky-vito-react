@@ -6,9 +6,7 @@ import SearchBox from "../../components/SearchBox"
 import PageTitle from "../../components/PageTitle"
 import GoodCard from "../../components/GoodCard"
 import * as S from './styles'
-import { dateFormatter } from "../../constants/dateFormatter"
-import { ucFirst } from "../../constants/ucFirst"
-import { createLink } from "../../constants/createLink"
+import { dateFormatter, createLink, ucFirst } from "../../helpers"
 
 const MainPage = () => {
     const { allGoods } = useAppSelector(state => state.ads)
@@ -35,7 +33,7 @@ const MainPage = () => {
                                         date={dateFormatter(good.created_on)}
                                         place={good.user.city}
                                         imgUrl={createLink(good.images)}
-                                />
+                                    />
                                 )
                             })
                         }

@@ -1,6 +1,16 @@
+import { GoodImage } from "../types"
 import { formatRelative } from "date-fns";
-import { ucFirst } from "./ucFirst";
 import { ru } from "date-fns/locale";
+
+export const ucFirst = (str:string):string => str.charAt(0).toUpperCase() + str.slice(1)
+
+export const createLink = (arr:GoodImage[]):string => {
+   if(!arr || arr.length === 0) {
+    return ''
+   }
+
+   return import.meta.env.VITE_API_URL + arr[0].url
+}
 
 export const dateFormatter = (dateString:string):string => {
     const date = new Date(dateString)
@@ -9,7 +19,4 @@ export const dateFormatter = (dateString:string):string => {
     
     return ucFirst(res)
 } 
-
-   
-
 
