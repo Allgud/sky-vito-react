@@ -1,8 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-    
     * {
         margin: 0;
         padding: 0;
@@ -36,7 +34,7 @@ const GlobalStyles = createGlobalStyle`
         height: 100%;
         font-family: 'Roboto', sans-serif;
         color: #000000;
-
+        overflow-y: auto;
     }
 
     div,

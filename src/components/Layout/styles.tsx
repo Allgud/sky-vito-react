@@ -7,11 +7,12 @@ type FixedLayout = {
 export const Wrapper = styled.div<FixedLayout>`
     width: 100%;    
     min-height: 100%;
-    overflow: hidden;
+    overflow-y: hidden;
     background-color: #F1F1F1;
     display: flex;
     flex-direction: column;
-    position: ${props => props.$active && 'fixed'}; 
+    position: ${props => props.$active && 'fixed'};
+    
 `
 
 export const Container = styled.div`

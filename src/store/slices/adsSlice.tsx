@@ -25,12 +25,14 @@ type Good = {
 
 type AdsState = {
     allGoods: Good[],
+    appGoods: Good[],
     loading: boolean,
     error: string | null,
 }
 
 const initialState:AdsState = {
    allGoods: [],
+   appGoods: [],
    loading: false,
    error: null,
 }
@@ -38,24 +40,29 @@ const initialState:AdsState = {
 export const getAllAds = createAsyncThunk<Good[], undefined, {rejectValue: string}>(
     "ads/getAllAds",
     async function() {
-        const response = await fetch('http://localhost:8090/ads')
+        const response = await axios.get('http://localhost:8090/ads')
         
-        return await response.json()
+        return response.data
     }
 )
 
 const adsSlice = createSlice({
     name: 'ads',
     initialState,
-    reducers: {},
+    reducers: {
+        filterByText(state, action: PayloadAction<string>) {
+            state.appGoods = state.allGoods.filter(el => el.title.toLowerCase().startsWith(action.payload.toLowerCase()))
+        },
+
+    },
     extraReducers: (builder) => {
         builder
           .addCase(getAllAds.fulfilled, (state, action) => {
-            console.log(action.payload);
-            
             state.allGoods = action.payload
+            state.appGoods = action.payload
           })
     }
 })
 
 export default adsSlice.reducer
+export const { filterByText } = adsSlice.actions

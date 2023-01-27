@@ -9,7 +9,7 @@ import * as S from './styles'
 import { dateFormatter, createLink, ucFirst } from "../../helpers"
 
 const MainPage = () => {
-    const { allGoods } = useAppSelector(state => state.ads)
+    const { appGoods } = useAppSelector(state => state.ads)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const MainPage = () => {
                 <S.MainContent>
                     <S.ContentCards>
                         {
-                            allGoods.map(good => {
+                            appGoods.map(good => {
                                 return (
                                     <GoodCard
                                         key={good.id} 

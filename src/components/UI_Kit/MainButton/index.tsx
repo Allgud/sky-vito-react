@@ -1,10 +1,10 @@
 import * as S from './styles'
 
-type ButtonTitle = {
+type ButtonProps = {
     title: string
 }
 
-const MainButton = ({title}:ButtonTitle) => {
+const MainButton = ({title}:ButtonProps) => {
     return (
         <S.MainButton>{title}</S.MainButton>
     )
