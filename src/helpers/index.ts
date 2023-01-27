@@ -18,5 +18,17 @@ export const dateFormatter = (dateString:string):string => {
     const res = formatRelative(date, today, { locale: ru })
     
     return ucFirst(res)
-} 
+}
+
+export const debounce = (cb:Function):Function => {
+    let timeout:NodeJS.Timeout;
+
+    return function (this:ThisParameterType<Function>) {
+        const called = () => {cb.apply(this, arguments)}
+
+        clearTimeout(timeout)
+
+        timeout = setTimeout(called, import.meta.env.VITE_DELAY)
+    }
+}
 
