@@ -20,7 +20,7 @@ const SearchBox = () => {
         setText(value)
     }
 
-    const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (evt:FormEvent<HTMLFormElement>) => {
         evt.preventDefault()
         dispatch(filterByText(text))
     }

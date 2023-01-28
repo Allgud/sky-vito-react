@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ReviewListItem = styled.li`
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     margin: 15px 0;
 `
 

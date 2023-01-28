@@ -33,6 +33,7 @@ const MainPage = () => {
                                         date={dateFormatter(good.created_on)}
                                         place={good.user.city}
                                         imgUrl={createLink(good.images)}
+                                        id={good.id}
                                     />
                                 )
                             })

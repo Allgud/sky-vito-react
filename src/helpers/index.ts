@@ -1,5 +1,5 @@
 import { GoodImage } from "../types"
-import { formatRelative } from "date-fns";
+import { format, formatRelative } from "date-fns";
 import { ru } from "date-fns/locale";
 
 export const ucFirst = (str:string):string => str.charAt(0).toUpperCase() + str.slice(1)
@@ -9,7 +9,7 @@ export const createLink = (arr:GoodImage[]):string => {
     return ''
    }
 
-   return import.meta.env.VITE_API_URL + arr[0].url
+   return import.meta.env.VITE_API_URL + "/" + arr[0].url
 }
 
 export const dateFormatter = (dateString:string):string => {
@@ -18,6 +18,10 @@ export const dateFormatter = (dateString:string):string => {
     const res = formatRelative(date, today, { locale: ru })
     
     return ucFirst(res)
+}
+
+export const sellsFromFormat = (date:string):string => {
+    return format(new Date(date), "MMMM yyyy", {locale: ru})
 }
 
 export const debounce = (cb:Function):Function => {

@@ -1,19 +1,39 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { Good, AdsState } from '../../types'
+import { Good, AdsState, Comment, AdsImage } from '../../types'
 
 const initialState:AdsState = {
    allGoods: [],
    appGoods: [],
    loading: false,
    error: null,
+   currentGood: null,
+   comments: [],
 }
 
 export const getAllAds = createAsyncThunk<Good[], undefined, {rejectValue: string}>(
     "ads/getAllAds",
     async function() {
-        const response = await axios.get('http://localhost:8090/ads')
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/ads`)
         
+        return response.data
+    }
+)
+
+export const getCurrentAds = createAsyncThunk<Good, number, {rejectValue: string}>(
+    "ads/getCurrentAds",
+    async function (id) {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/ads/${id}`)
+
+        return response.data
+    }
+)
+
+export const getAdsComments = createAsyncThunk<Comment[], number, {rejectValue: string}>(
+    "ads/getAdsComments",
+    async function(id) {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/ads/${id}/comments`)
+
         return response.data
     }
 )
@@ -24,14 +44,19 @@ const adsSlice = createSlice({
     reducers: {
         filterByText(state, action: PayloadAction<string>) {
             state.appGoods = state.allGoods.filter(el => el.title.toLowerCase().startsWith(action.payload.toLowerCase()))
-        },
-
+        }
     },
     extraReducers: (builder) => {
         builder
           .addCase(getAllAds.fulfilled, (state, action) => {
             state.allGoods = action.payload
             state.appGoods = action.payload
+          })
+          .addCase(getCurrentAds.fulfilled, (state, action) => { 
+            state.currentGood = action.payload
+          })
+          .addCase(getAdsComments.fulfilled, (state, action) => {
+            state.comments = action.payload.sort((a, b) => a.id - b.id)
           })
     }
 })

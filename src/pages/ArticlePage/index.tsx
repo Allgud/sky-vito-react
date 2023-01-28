@@ -1,14 +1,17 @@
 import * as S from './styles'
 import PageMenu from '../../components/PageMenu'
-import ArticleImageBox from '../../components/ArticleImageBlock'
+import ArticleImageBox from '../../components/ArticleImageBox'
 import ShowPhoneButton from '../../components/UI_Kit/ShowPhoneButton'
 import UserArticleButtons from '../../components/UserArticleButtons'
 import { Link } from 'react-router-dom'
 import useModal from '../../hooks/useModal'
 import { MouseEvent } from 'react'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { dateFormatter, sellsFromFormat } from '../../helpers'
 
 const ArticlePage = () => {
     const { getModal } = useModal()
+    const { currentGood, comments } = useAppSelector(state => state.ads) 
     const isUserArticle = false
 
     const handleClick = (evt:MouseEvent) => {
@@ -22,22 +25,22 @@ const ArticlePage = () => {
                 <ArticleImageBox />
                 <S.ArticleRight>
                     <S.ArticleRightContent>
-                        <S.ArticleTitle>Ракетка для большого тенниса Triumph Pro STС Б/У</S.ArticleTitle>
+                        <S.ArticleTitle>{currentGood && currentGood.title}</S.ArticleTitle>
                         <S.ArticleInfo>
-                            <S.ArticleDate>Сегодня в 10:45</S.ArticleDate>
-                            <S.ArticleCity>Санкт-Петербург</S.ArticleCity>
+                            <S.ArticleDate>{currentGood && dateFormatter(currentGood.created_on)}</S.ArticleDate>
+                            <S.ArticleCity>{currentGood && currentGood.user.city}</S.ArticleCity>
                             <S.ArticleLink
                                 id='reviews' 
                                 onClick={(evt) => handleClick(evt)}
                             >
-                                23 отзыва
+                                {comments.length} отзывов
                             </S.ArticleLink>
                         </S.ArticleInfo>
-                        <S.ArticlePrice>2 200 ₽</S.ArticlePrice>
+                        <S.ArticlePrice>{currentGood && currentGood.price} ₽</S.ArticlePrice>
                         {
                             isUserArticle 
                             ? <UserArticleButtons />
-                            : <ShowPhoneButton phone="8-925-891-27-89"/>  
+                            : <ShowPhoneButton phone={currentGood && currentGood.user.phone}/>  
                         }
                         <S.ArticleAuthor>
                             <S.ArticleAuthorImage>
@@ -45,9 +48,9 @@ const ArticlePage = () => {
                             </S.ArticleAuthorImage>
                             <S.AuthorCont>
                                 <Link to="/seller">
-                                    <S.AuthorName>Кирилл</S.AuthorName>
+                                    <S.AuthorName>{currentGood && currentGood.user.name}</S.AuthorName>
                                 </Link>
-                                <S.AuthorAbout>Продает товары с августа 2021</S.AuthorAbout>
+                                <S.AuthorAbout>{`Продаёт товары с ${currentGood?.user.sells_from && sellsFromFormat(currentGood?.user.sells_from)}`}</S.AuthorAbout>
                             </S.AuthorCont>
                         </S.ArticleAuthor>
                     </S.ArticleRightContent>
@@ -57,7 +60,7 @@ const ArticlePage = () => {
                     <S.ArticleDescriptionTitle>Описание товара</S.ArticleDescriptionTitle>
                     <S.ArticleDescriptionContent>
                         <S.ArticleDescriptionText>
-                           Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis quidem hic ipsam libero deleniti voluptates accusantium vitae molestias labore eos ipsum, aliquid ad quae consequuntur facere quis perferendis, impedit sequi expedita tenetur sapiente. Ipsa eum voluptatem, hic nisi veritatis numquam voluptatum inventore qui et sit vitae ducimus nemo ex earum.
+                           {currentGood && currentGood.description}
                         </S.ArticleDescriptionText>
                     </S.ArticleDescriptionContent>
                 </S.ArticleDescriptionBlock>

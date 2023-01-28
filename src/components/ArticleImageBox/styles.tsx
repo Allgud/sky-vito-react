@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+type ImgItemProps = {
+    $active: boolean
+}
+
 export const ImageBox = styled.div`
     max-width: 480px;        
     margin-right: 54px;
@@ -37,13 +41,13 @@ export const ImageBar = styled.ul`
     margin-left: -5px;
 `
 
-export const ImageBarItem = styled.li`
+export const ImageBarItem = styled.li<ImgItemProps>`
     width: 88px;
     min-width: 88px;
     height: 88px;
     background-color: #F0F0F0;
     margin: 0 5px;
-    border: 2px solid #F0F0F0;
+    border: ${props => props.$active ? '2px solid #009EE4' : '2px solid #F0F0F0'};
 
     :hover {
         border: 2px solid #009EE4;

@@ -10,7 +10,7 @@ export const ArticleBlock = styled.div`
 export const ArticleContent = styled.div`
     display: flex;        
     align-items: top;
-    justify-content: center;
+    justify-content: flex-start;
 `
 
 export const ArticleLeft = styled.div`

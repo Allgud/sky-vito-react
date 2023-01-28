@@ -17,8 +17,8 @@ interface MContext {
 export const ModalContext = createContext<MContext>({
     active: false,
     currentModal: <></>,
-    close: () => { },
-    getModal: (arg0) => { }
+    close: () => {},
+    getModal: () => {}
 })
 
 const ModalProvider = ({ children }: ContextChildren) => {
@@ -29,6 +29,7 @@ const ModalProvider = ({ children }: ContextChildren) => {
 
     const getModal = (evt: MouseEvent) => {
         const id = evt.currentTarget.id
+        
         if (id === 'link') {
             return
         }

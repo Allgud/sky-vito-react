@@ -1,13 +1,7 @@
 import * as S from './styles'
+import { Comment } from '../../types'
 
-type ReviewProps = {
-    author: string,
-    date: string,
-    comment: string,
-    title: string
-}
-
-const ReviewItem = ({author, date, comment, title}:ReviewProps) => {
+const ReviewItem = ({author, created_on, text, id}:Comment) => {
     return (
         <S.ReviewListItem>
             <S.ReviewItem>
@@ -17,11 +11,11 @@ const ReviewItem = ({author, date, comment, title}:ReviewProps) => {
                     </S.ReviewImage>
                 </S.ReviewLeft>
                 <S.ReviewRight>
-                    <S.ReviewName>{author}
-                        <S.ReviewDate>{date}</S.ReviewDate>
+                    <S.ReviewName>{author.name}
+                        <S.ReviewDate>{created_on}</S.ReviewDate>
                     </S.ReviewName>
-                    <S.ReviewTitle>{title || "Комментарий"}</S.ReviewTitle>
-                    <S.ReviewText>{comment}</S.ReviewText>
+                    <S.ReviewTitle>Комментарий</S.ReviewTitle>
+                    <S.ReviewText>{text}</S.ReviewText>
                 </S.ReviewRight>
             </S.ReviewItem>
         </S.ReviewListItem>

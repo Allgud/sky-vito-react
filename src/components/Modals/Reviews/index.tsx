@@ -3,9 +3,12 @@ import ReviewItem from '../../ReviewItem'
 import useModal from '../../../hooks/useModal'
 import CloseModalButton from '../../UI_Kit/CloseModalButton'
 import PublishButton from '../../UI_Kit/PublishButton'
+import { useAppSelector } from '../../../hooks/useAppSelector'
 
 const Reviews = () => {
-    const { close} = useModal()
+    const { comments } = useAppSelector(state => state.ads)
+    const { close } = useModal()
+    
 
     return (
         <S.ReviewsContent>
@@ -24,38 +27,18 @@ const Reviews = () => {
                     <PublishButton />
                 </S.NewArtForm>
                 <S.ReviewsList>
-                    <ReviewItem 
-                        author='Олег'
-                        date='14 августа'
-                        comment='Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.'
-                        title='Комментарий'
-                    />
-                    <ReviewItem 
-                        author='Олег'
-                        date='14 августа'
-                        comment='Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.'
-                        title='Комментарий'
-                    />
-                    <ReviewItem 
-                        author='Олег'
-                        date='14 августа'
-                        comment='Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.'
-                        title='Комментарий'
-                    />
-                    <ReviewItem 
-                        author='Олег'
-                        date='14 августа'
-                        comment='Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.'
-                        title='Комментарий'
-                    />
+                    {   
+                        comments &&
+                        comments.map(comment => 
+                            <ReviewItem
+                                key={comment.id} 
+                                author={comment.author}
+                                created_on={comment.created_on}
+                                text={comment.text}
+                                id={comment.id}
+                            />    
+                        )
+                    }
                 </S.ReviewsList>
             </S.ReviewsScroll>
         </S.ReviewsContent>

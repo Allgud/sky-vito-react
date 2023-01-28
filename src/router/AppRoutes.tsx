@@ -12,7 +12,7 @@ const AppRoutes = ():ReactElement => {
             <Route path="/" element={<Layout />}>
                 <Route index element={<MainPage />} />
                 <Route path="profile" element={<UserProfile />} />
-                <Route path="article" element={<ArticlePage />} />
+                <Route path="article/:id" element={<ArticlePage />} />
                 <Route path="seller" element={<SellerProfile />} />
             </Route>
         </Routes>
