@@ -46,3 +46,17 @@ export type AdsImage = {
     id: number,
     ad_id: number
 }
+
+export type UserState = {
+    user: User | null,
+    isUser: boolean
+}
+
+export type FormValues = {
+    email: string,
+    password: string,
+    confirm_password: string,
+    name: string,
+    surname: string,
+    city: string
+}

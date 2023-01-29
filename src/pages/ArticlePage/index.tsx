@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react'
 import * as S from './styles'
 import PageMenu from '../../components/PageMenu'
 import ArticleImageBox from '../../components/ArticleImageBox'
@@ -5,7 +6,6 @@ import ShowPhoneButton from '../../components/UI_Kit/ShowPhoneButton'
 import UserArticleButtons from '../../components/UserArticleButtons'
 import { Link } from 'react-router-dom'
 import useModal from '../../hooks/useModal'
-import { MouseEvent } from 'react'
 import { useAppSelector } from '../../hooks/useAppSelector'
 import { dateFormatter, sellsFromFormat } from '../../helpers'
 

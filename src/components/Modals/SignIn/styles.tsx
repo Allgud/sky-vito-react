@@ -25,12 +25,9 @@ export const FormLogoImg = styled.img`
 
 export const FormInput = styled.input`
     width: 100%;
-    border-top: none;
-    border-left: none;
-    border-right: none;
+    border: none;
     border-bottom: 1px solid #D0CECE;
     padding: 8px 1px;
-    margin-bottom: 30px;
 
     &::placeholder {
         font-style: normal;
@@ -40,4 +37,13 @@ export const FormInput = styled.input`
         letter-spacing: -0.05px;
         color: #D0CECE;
     }
+`
+
+export const ErrorMessage = styled.div`
+    width: 100%;
+    height: 30px;
+    font-size: 16px;
+    font-family: inherit;
+    font-weight: 500;
+    color: red;
 `
