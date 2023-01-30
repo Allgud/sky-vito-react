@@ -12,13 +12,15 @@ export type Comment = {
 }
 
 export type User = {
-    userId: number,
+    id: number,
     name: string,
     email: string,
     city: string,
     avatar: string,
-    sells_from?: string,
+    sells_from: string,
     phone: string,
+    role?: string,
+    surname: string
 }
 
 export type Good = {
@@ -38,7 +40,8 @@ export type AdsState = {
     loading: boolean,
     error: string | null,
     currentGood: Good | null,
-    comments: Comment[]
+    comments: Comment[],
+    sellerGoods: Good[]
 }
 
 export type AdsImage = {
@@ -48,15 +51,34 @@ export type AdsImage = {
 }
 
 export type UserState = {
-    user: User | null,
-    isUser: boolean
+    user: User,
+    isUser: boolean,
+    isAuth: boolean,
+    userGoods: Good[]
 }
 
 export type FormValues = {
     email: string,
     password: string,
-    confirm_password: string,
+    confirm_password?: string,
+    name?: string,
+    surname?: string,
+    city?: string,
+}
+
+export type ProfileFormValues = {
     name: string,
     surname: string,
-    city: string
+    city: string,
+    phone: string
+}
+
+export type AuthData = {
+    access_token: string,
+    refresh_token: string,
+    token_type: string
+}
+
+export type SellerState = {
+    currentSeller: User
 }

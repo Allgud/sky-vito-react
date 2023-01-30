@@ -22,6 +22,9 @@ export const dateFormatter = (dateString:string):string => {
 }
 
 export const sellsFromFormat = (date:string):string => {
+    if(typeof date !== 'string') {
+        return '01.01.23'
+    }
     return format(new Date(date), "MMMM yyyy", {locale: ru})
 }
 

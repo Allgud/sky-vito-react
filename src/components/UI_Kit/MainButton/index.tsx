@@ -1,7 +1,7 @@
 import * as S from './styles'
 
 type ButtonProps = {
-    title: string
+    title: string,
 }
 
 const MainButton = ({title}:ButtonProps) => {

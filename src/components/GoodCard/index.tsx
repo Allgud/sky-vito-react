@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import blank from '../../assets/img/no-image.png'
 import { getAdsComments, getCurrentAds } from '../../store/slices/adsSlice'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { dateFormatter, ucFirst } from "../../helpers"
 
 type GoodsPropTypes = {
     imgUrl?: string,
@@ -29,11 +30,11 @@ const GoodCard = ({ imgUrl, title, price, place, date, id}: GoodsPropTypes) => {
                 </S.CardImage>
                 <S.CardContent>
                     <Link to={`/article/${id}`}>
-                        <S.CardTitle onClick={handleClick}>{title}</S.CardTitle>
+                        <S.CardTitle onClick={handleClick}>{ucFirst(title)}</S.CardTitle>
                     </Link>
                     <S.CardPrice>{`${price} ₽`}</S.CardPrice>
                     <S.CardPlace>{place}</S.CardPlace>
-                    <S.CardDate>{date}</S.CardDate>
+                    <S.CardDate>{dateFormatter(date)}</S.CardDate>
                 </S.CardContent>
             </S.Card>
         </S.CardItem>

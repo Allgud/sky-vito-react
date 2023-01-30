@@ -47,7 +47,7 @@ const ArticlePage = () => {
                                 <S.ArticleAuthorImageImg />
                             </S.ArticleAuthorImage>
                             <S.AuthorCont>
-                                <Link to="/seller">
+                                <Link to={`/seller/${currentGood?.user.id}`}>
                                     <S.AuthorName>{currentGood && currentGood.user.name}</S.AuthorName>
                                 </Link>
                                 <S.AuthorAbout>{`Продаёт товары с ${currentGood?.user.sells_from && sellsFromFormat(currentGood?.user.sells_from)}`}</S.AuthorAbout>

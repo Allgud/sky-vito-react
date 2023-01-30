@@ -9,6 +9,7 @@ const initialState:AdsState = {
    error: null,
    currentGood: null,
    comments: [],
+   sellerGoods: []
 }
 
 export const getAllAds = createAsyncThunk<Good[], undefined, {rejectValue: string}>(
@@ -38,6 +39,19 @@ export const getAdsComments = createAsyncThunk<Comment[], number, {rejectValue: 
     }
 )
 
+export const getSellerGoods = createAsyncThunk<Good[], number, { rejectValue: string }>(
+    'ads/getSellerGoods',
+    async function(id) {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/ads`, {
+            params: {
+                user_id: id
+            }
+        })
+
+        return response.data
+    }
+)
+
 const adsSlice = createSlice({
     name: 'ads',
     initialState,
@@ -57,6 +71,9 @@ const adsSlice = createSlice({
           })
           .addCase(getAdsComments.fulfilled, (state, action) => {
             state.comments = action.payload.sort((a, b) => a.id - b.id)
+          })
+          .addCase(getSellerGoods.fulfilled, (state, action) => {
+            state.sellerGoods = action.payload
           })
     }
 })

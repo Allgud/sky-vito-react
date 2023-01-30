@@ -3,17 +3,25 @@ import formLogo from '../../../assets/img/logo_modal.png'
 import FormButton from '../../UI_Kit/FormButton'
 import { useAppSelector } from '../../../hooks/useAppSelector'
 import { useAppDispatch } from '../../../hooks/useAppDispatch'
-import { changeIsUser } from '../../../store/slices/userSlice'
+import { changeIsUser, createUser, login } from '../../../store/slices/userSlice'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { FormValues } from '../../../types'
+import useModal from '../../../hooks/useModal'
 
 const SignIn = () => {
     const dispatch = useAppDispatch()
+    const { close } = useModal()
     const { isUser } = useAppSelector(state => state.user)
     const {handleSubmit, register, reset, formState: {errors}, watch} = useForm<FormValues>()
 
     const onEventSubmit: SubmitHandler<FormValues> = (data) => {
-        console.log(data);
+        if(data.name){
+            dispatch(createUser(data))
+        } else {
+            dispatch(login(data))
+            close()
+        }
+
         reset()
     }
 
@@ -22,7 +30,7 @@ const SignIn = () => {
     }
 
     return(
-        <S.FormLogin id="form" onSubmit={handleSubmit(onEventSubmit)}>
+        <S.FormLogin onSubmit={handleSubmit(onEventSubmit)}>
             <S.FormLogo>
                 <S.FormLogoImg src={formLogo} />
             </S.FormLogo>
@@ -53,9 +61,10 @@ const SignIn = () => {
                 !isUser && 
                 <>
                     <S.FormInput 
+                        type="password"
                         {...register("confirm_password", {
                             required: "Поле обязательно для заполнения",
-                            validate: (val:string) => {
+                            validate: (val:string | undefined) => {
                                 if(watch("password") !== val) {
                                     return 'Пароли долны совпадать'
                                 }
@@ -71,7 +80,9 @@ const SignIn = () => {
                         placeholder='Имя' 
                     />
                     <S.ErrorMessage>{errors?.name && errors?.name?.message}</S.ErrorMessage>
-                    <S.FormInput {...register("surname")} placeholder='Фамилия (необязательно)' />
+                    <S.FormInput 
+                        {...register("surname")} 
+                        placeholder='Фамилия' />
                     <S.ErrorMessage></S.ErrorMessage>
                     <S.FormInput 
                         {...register("city", {

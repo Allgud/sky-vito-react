@@ -3,13 +3,36 @@ import MainButton from '../../components/UI_Kit/MainButton'
 import PageTitle from '../../components/PageTitle'
 import PageMenu from '../../components/PageMenu'
 import CardsBlock from '../../components/CardsBlock'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import { useEffect, useState } from 'react'
+import { ProfileFormValues } from '../../types'
+import { updateUserData } from '../../store/slices/userSlice'
 
 const UserProfile = () => {
+    const dispatch = useAppDispatch()
+    const { user } = useAppSelector(state => state.user)
+    const { register, handleSubmit, setValue } = useForm<ProfileFormValues>()
+
+    const onFormSubmit:SubmitHandler<ProfileFormValues> = (data) => {
+        dispatch(updateUserData(data))
+    }
+
+    useEffect(() => {
+        if(user) {
+            setValue("name", user.name)
+            setValue("surname", user.surname)
+            setValue("city", user.city)
+            setValue("phone", user.phone)
+        }
+    }, [user])
+
     return (
         <S.ProfileContainer>
             <S.ProfileCenterBlock>
                 <PageMenu />
-                <PageTitle title="Здравствуйте, Антон!"/>
+                <PageTitle title={`Здравствуйте, ${user?.name}!`}/>
                 <S.ProfileBlock>
                     <S.ProfileContent>
                         <S.ProfileContentTitle>Настройки профиля</S.ProfileContentTitle>
@@ -21,33 +44,25 @@ const UserProfile = () => {
                                 <S.ChangeImgButton>Заменить</S.ChangeImgButton>
                             </S.SettingsLeft>
                             <S.SettingsRight>
-                                <S.SettingsForm>
+                                <S.SettingsForm onSubmit={handleSubmit(onFormSubmit)}>
                                     <S.SettingsDiv>
                                         <S.SettingsInputLabel
-                                            htmlFor="fname"
+                                            htmlFor="name"
                                         >
                                             Имя
                                         </S.SettingsInputLabel>
                                         <S.SettingsInput 
-                                            name="fname"
-                                            type="text"
-                                            value="Ан"
-                                            placeholder=""
-                                            onChange={() => {}}
+                                            {...register("name")}
                                         />
                                     </S.SettingsDiv>
                                     <S.SettingsDiv>
                                         <S.SettingsInputLabel
-                                            htmlFor="lname"
+                                            htmlFor="surname"
                                         >
                                             Фамилия
                                         </S.SettingsInputLabel>
                                         <S.SettingsInput 
-                                            name="lname"
-                                            type="text"
-                                            value="Городецкий"
-                                            placeholder=""
-                                            onChange={() => {}}
+                                            {...register('surname')}
                                         />
                                     </S.SettingsDiv>
                                     <S.SettingsDiv>
@@ -57,11 +72,7 @@ const UserProfile = () => {
                                             Город
                                         </S.SettingsInputLabel>
                                         <S.SettingsInput 
-                                            name="city"
-                                            type="text"
-                                            value="Санкт-Петербург"
-                                            placeholder=""
-                                            onChange={() => {}}
+                                            {...register('city')}
                                         />
                                     </S.SettingsDiv>
                                     <S.SettingsDiv>
@@ -71,14 +82,10 @@ const UserProfile = () => {
                                             Телефон
                                         </S.SettingsInputLabel>
                                         <S.PhoneSettingsInput 
-                                            name="phone"
-                                            type="tel"
-                                            value="89161234567"
-                                            placeholder="+79161234567"
-                                            onChange={() => {}}
+                                            {...register('phone')}
                                         />
                                     </S.SettingsDiv>
-                                    <MainButton title="Сохранить"/>
+                                    <MainButton title="Сохранить" />
                                 </S.SettingsForm>
                             </S.SettingsRight>
                         </S.ProfileSettings>

@@ -4,16 +4,16 @@ import { MouseEvent } from 'react'
 
 type ButtonTitle = {
     title: string,
-    id: string
+    id: string,
+    action: (arg0:MouseEvent) => void
 }
 
-const HeaderButton = ({title, id}:ButtonTitle) => {
-    const { getModal } = useModal()
+const HeaderButton = ({title, id, action}:ButtonTitle) => {
 
     return (
         <S.HeaderButton 
             id={id} 
-            onClick={(evt) => getModal(evt)}
+            onClick={(evt) => action(evt)}
         >
             {title}
         </S.HeaderButton>

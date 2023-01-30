@@ -6,13 +6,17 @@ import SearchBox from "../../components/SearchBox"
 import PageTitle from "../../components/PageTitle"
 import GoodCard from "../../components/GoodCard"
 import * as S from './styles'
-import { dateFormatter, createLink, ucFirst } from "../../helpers"
+import { createLink } from "../../helpers"
+import { checkIsAuth } from "../../store/slices/userSlice"
 
 const MainPage = () => {
     const { appGoods } = useAppSelector(state => state.ads)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
+        if(localStorage.getItem('token')) {
+            dispatch(checkIsAuth())
+        }
         dispatch(getAllAds())
     }, [])
 
@@ -28,9 +32,9 @@ const MainPage = () => {
                                 return (
                                     <GoodCard
                                         key={good.id} 
-                                        title={ucFirst(good.title)}
+                                        title={good.title}
                                         price={good.price}
-                                        date={dateFormatter(good.created_on)}
+                                        date={good.created_on}
                                         place={good.user.city}
                                         imgUrl={createLink(good.images)}
                                         id={good.id}
