@@ -35,6 +35,7 @@ export const SettingsLeft = styled.div`
     flex-direction: column;
     align-items: center;
     margin-right: 43px;
+    
 `
 
 export const ProfileImage = styled.div`
@@ -51,16 +52,23 @@ export const ProfileImageImg = styled.img`
     object-fit: cover;
 `
 
-export const ChangeImgButton = styled.button`
-    margin-top: 10px;
-    margin-bottom: 30px;
-    text-decoration: none;
+export const ChangeImgBtnLabel = styled.label`
+    font-family: inherit;
     font-size: 16px;
     line-height: 24px;
     color: #009EE4;
-    background-color: transparent;
-    border: none;
-    outline: none;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    position: relative;
+`
+
+export const ChangeImgButton = styled.input`
+    isplay: inline-block;
+    width: 80px;
+    opacity: 0; 
+    position: absolute;
+    left: 0px;
+    top: 5px; 
 `
 
 export const SettingsRight = styled.div`

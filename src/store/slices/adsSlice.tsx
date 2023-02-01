@@ -9,7 +9,8 @@ const initialState:AdsState = {
    error: null,
    currentGood: null,
    comments: [],
-   sellerGoods: []
+   sellerGoods: [],
+   isUserGood: false
 }
 
 export const getAllAds = createAsyncThunk<Good[], undefined, {rejectValue: string}>(

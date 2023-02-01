@@ -3,6 +3,7 @@ import CloseModalButton from '../../UI_Kit/CloseModalButton';
 import useModal from '../../../hooks/useModal';
 import ImagesBarItem from '../../ImagesBarItem';
 import PublishButton from '../../UI_Kit/PublishButton';
+import { useForm } from 'react-hook-form'
 
 type I = {
     link: string

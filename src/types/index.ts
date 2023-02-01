@@ -41,7 +41,8 @@ export type AdsState = {
     error: string | null,
     currentGood: Good | null,
     comments: Comment[],
-    sellerGoods: Good[]
+    sellerGoods: Good[],
+    isUserGood: boolean
 }
 
 export type AdsImage = {

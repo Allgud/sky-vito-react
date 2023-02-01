@@ -1,7 +1,6 @@
 import { GoodImage, FormValues } from "../types"
 import { format, formatRelative } from "date-fns";
 import { ru } from "date-fns/locale";
-import { Resolver } from "react-hook-form";
 
 export const ucFirst = (str:string):string => str.charAt(0).toUpperCase() + str.slice(1)
 

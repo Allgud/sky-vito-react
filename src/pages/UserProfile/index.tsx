@@ -41,7 +41,15 @@ const UserProfile = () => {
                                 <S.ProfileImage>
                                     <S.ProfileImageImg />
                                 </S.ProfileImage>
-                                <S.ChangeImgButton>Заменить</S.ChangeImgButton>
+                                <S.ChangeImgBtnLabel
+                                    htmlFor='change-user-pic'
+                                >
+                                    Заменить
+                                    <S.ChangeImgButton
+                                    name='change-user-pic'
+                                    type='file' 
+                                />  
+                                </S.ChangeImgBtnLabel>
                             </S.SettingsLeft>
                             <S.SettingsRight>
                                 <S.SettingsForm onSubmit={handleSubmit(onFormSubmit)}>

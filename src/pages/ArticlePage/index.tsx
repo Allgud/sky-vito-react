@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 import * as S from './styles'
 import PageMenu from '../../components/PageMenu'
 import ArticleImageBox from '../../components/ArticleImageBox'
@@ -10,13 +10,9 @@ import { useAppSelector } from '../../hooks/useAppSelector'
 import { dateFormatter, sellsFromFormat } from '../../helpers'
 
 const ArticlePage = () => {
+    const [isUserGood, setIsUserGood] = useState(false)
     const { getModal } = useModal()
-    const { currentGood, comments } = useAppSelector(state => state.ads) 
-    const isUserArticle = false
-
-    const handleClick = (evt:MouseEvent) => {
-        getModal(evt)
-    }
+    const { currentGood, comments } = useAppSelector(state => state.ads)
 
     return (
         <S.ArticleBlock>
@@ -31,20 +27,20 @@ const ArticlePage = () => {
                             <S.ArticleCity>{currentGood && currentGood.user.city}</S.ArticleCity>
                             <S.ArticleLink
                                 id='reviews' 
-                                onClick={(evt) => handleClick(evt)}
+                                onClick={(evt) => getModal(evt)}
                             >
                                 {comments.length} отзывов
                             </S.ArticleLink>
                         </S.ArticleInfo>
                         <S.ArticlePrice>{currentGood && currentGood.price} ₽</S.ArticlePrice>
                         {
-                            isUserArticle 
+                            isUserGood
                             ? <UserArticleButtons />
                             : <ShowPhoneButton phone={currentGood && currentGood.user.phone}/>  
                         }
                         <S.ArticleAuthor>
                             <S.ArticleAuthorImage>
-                                <S.ArticleAuthorImageImg />
+                                <S.ArticleAuthorImageImg src={`${import.meta.env.VITE_API_URL}/${currentGood?.user.avatar}`}/>
                             </S.ArticleAuthorImage>
                             <S.AuthorCont>
                                 <Link to={`/seller/${currentGood?.user.id}`}>
