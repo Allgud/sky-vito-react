@@ -6,17 +6,33 @@ import CardsBlock from '../../components/CardsBlock'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { useAppSelector } from '../../hooks/useAppSelector'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useRef } from 'react'
 import { ProfileFormValues } from '../../types'
-import { updateUserData } from '../../store/slices/userSlice'
+import { updateUserData, changeUserAvatar } from '../../store/slices/userSlice'
 
 const UserProfile = () => {
+    const filePicker = useRef<HTMLInputElement>(null)
     const dispatch = useAppDispatch()
     const { user } = useAppSelector(state => state.user)
     const { register, handleSubmit, setValue } = useForm<ProfileFormValues>()
 
     const onFormSubmit:SubmitHandler<ProfileFormValues> = (data) => {
         dispatch(updateUserData(data))
+    }
+
+    const handlePick = () => {
+        if(filePicker.current) {
+            filePicker.current.click()
+        }     
+    }
+    
+    const onAvatarChange = (evt:ChangeEvent<HTMLInputElement>) => {
+        if(evt.target.files) {
+            const file = evt.target.files[0]
+            const formData = new FormData()
+            formData.append('file', file)
+            dispatch(changeUserAvatar(formData))
+        }
     }
 
     useEffect(() => {
@@ -39,17 +55,15 @@ const UserProfile = () => {
                         <S.ProfileSettings>
                             <S.SettingsLeft>
                                 <S.ProfileImage>
-                                    <S.ProfileImageImg />
+                                    <S.ProfileImageImg src={`${user && import.meta.env.VITE_API_URL + "/" + user.avatar}`} />
                                 </S.ProfileImage>
-                                <S.ChangeImgBtnLabel
-                                    htmlFor='change-user-pic'
-                                >
-                                    Заменить
-                                    <S.ChangeImgButton
+                                <S.ChangeImgBtnButton onClick={handlePick}>Заменить</S.ChangeImgBtnButton>
+                                <S.ChangeImgInput
+                                    ref={filePicker}
                                     name='change-user-pic'
-                                    type='file' 
+                                    type='file'
+                                    onChange={(evt) => onAvatarChange(evt)}
                                 />  
-                                </S.ChangeImgBtnLabel>
                             </S.SettingsLeft>
                             <S.SettingsRight>
                                 <S.SettingsForm onSubmit={handleSubmit(onFormSubmit)}>

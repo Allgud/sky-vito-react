@@ -8,7 +8,6 @@ const ImagesBarItem = ({imgUrl}:ImagesBarItemProps) => {
     return ( 
         <S.ImagesBarItem>
             <S.ImagesBarItemImg src={imgUrl} />
-            <S.ImagesBarItemCover />
         </S.ImagesBarItem>
      );
 }

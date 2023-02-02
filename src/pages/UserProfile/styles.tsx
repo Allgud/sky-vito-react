@@ -43,6 +43,7 @@ export const ProfileImage = styled.div`
     height: 170px;
     border-radius: 50%;
     background-color: #F0F0F0;
+    overflow: hidden;
 `
 
 export const ProfileImageImg = styled.img`
@@ -52,23 +53,22 @@ export const ProfileImageImg = styled.img`
     object-fit: cover;
 `
 
-export const ChangeImgBtnLabel = styled.label`
+export const ChangeImgBtnButton = styled.button`
+    background: transparent;
+    border: none;
     font-family: inherit;
     font-size: 16px;
     line-height: 24px;
     color: #009EE4;
     margin-top: 10px;
     margin-bottom: 30px;
-    position: relative;
 `
 
-export const ChangeImgButton = styled.input`
-    isplay: inline-block;
-    width: 80px;
+export const ChangeImgInput = styled.input`
+    width: 0;
+    height: 0;
     opacity: 0; 
-    position: absolute;
-    left: 0px;
-    top: 5px; 
+    overfow: hidden; 
 `
 
 export const SettingsRight = styled.div`

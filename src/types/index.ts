@@ -83,3 +83,7 @@ export type AuthData = {
 export type SellerState = {
     currentSeller: User
 }
+
+export type ComponentTitle = {
+    title: string
+}

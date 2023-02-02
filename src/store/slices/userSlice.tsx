@@ -75,6 +75,17 @@ export const getUserAds = createAsyncThunk<Good[], undefined, {rejectValue: stri
     } 
 )
 
+export const changeUserAvatar = createAsyncThunk<User, FormData, {rejectValue: string}>(
+    'user/changeUserAvatar',
+    async function(data) {
+        const response = await api.post(
+            '/user/avatar', 
+            data
+        )
+        return response.data 
+    }
+)
+
 const initialState:UserState = {
     user: {} as User,
     isUser: true,
@@ -118,6 +129,9 @@ const userSlice = createSlice({
             })
             .addCase(getUserAds.fulfilled, (state, action) => {
                 state.userGoods = action.payload
+            })
+            .addCase(changeUserAvatar.fulfilled, (state, action) => {
+                state.user.avatar = action.payload.avatar
             })
     }
 })

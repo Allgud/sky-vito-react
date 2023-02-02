@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect, useState } from 'react'
+import { useState } from 'react'
 import * as S from './styles'
 import PageMenu from '../../components/PageMenu'
 import ArticleImageBox from '../../components/ArticleImageBox'

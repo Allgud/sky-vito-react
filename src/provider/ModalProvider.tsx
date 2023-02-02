@@ -40,7 +40,7 @@ const ModalProvider = ({ children }: ContextChildren) => {
             setCurrentModal(<SignIn />)
         }
         if (id === 'addArt') {
-            setCurrentModal(<AddEditArticle modalTitle="Новое объявление" />)
+            setCurrentModal(<AddEditArticle title="Новое объявление" />)
         }
         setActive(true)
     }

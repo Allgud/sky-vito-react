@@ -6,14 +6,11 @@ import { useAppSelector } from '../../hooks/useAppSelector'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { getUserAds } from '../../store/slices/userSlice'
 import { createLink } from '../../helpers'
-import { Good } from '../../types'
+import { Good, ComponentTitle } from '../../types'
 import { getSellerGoods } from '../../store/slices/adsSlice'
+import NoDataBlock from '../NoDataBlock'
 
-type BlockTitle = {
-    title: string,
-}
-
-const CardsBlock = ({title}:BlockTitle) => {
+const CardsBlock = ({title}:ComponentTitle) => {
     const [array, setArray] = useState<Good[]>([])
     const location = useLocation()
     const dispatch = useAppDispatch()
@@ -46,17 +43,19 @@ const CardsBlock = ({title}:BlockTitle) => {
             <S.BlockTitle>{title}</S.BlockTitle>
             <S.CardsList>
                 {
-                    array.map(good => (
-                        <GoodCard
-                            key={good.id} 
-                            imgUrl={createLink(good.images)}
-                            title={good.title}
-                            price={good.price}
-                            date={good.created_on}
-                            id={good.id}
-                            place={good.user.city}
-                        />
-                    ))
+                    array.length 
+                        ? array.map(good => (
+                            <GoodCard
+                                key={good.id} 
+                                imgUrl={createLink(good.images)}
+                                title={good.title}
+                                price={good.price}
+                                date={good.created_on}
+                                id={good.id}
+                                place={good.user.city}
+                            />
+                          ))
+                          : <NoDataBlock title="Пока нет товаров"/>
                 }
                          
             </S.CardsList>

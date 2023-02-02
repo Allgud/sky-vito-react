@@ -1,60 +1,57 @@
 import * as S from './styles'
 import CloseModalButton from '../../UI_Kit/CloseModalButton';
 import useModal from '../../../hooks/useModal';
-import ImagesBarItem from '../../ImagesBarItem';
 import PublishButton from '../../UI_Kit/PublishButton';
-import { useForm } from 'react-hook-form'
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
+import { ComponentTitle } from '../../../types';
+import { useState, createContext, SetStateAction } from 'react';
+import NewAdsImageBar from '../../NewAdsImageBar';
 
-type I = {
-    link: string
+type AdsFormProps = {
+    ads_title: string,
+    text: string,
+    price: number
 }
 
-type AddEditProps = {
-    modalTitle: string,
-    artTitle?: string, 
-    text?: string 
-    images?: Array<I>
-}
- 
-const AddEditArticle = ({modalTitle, artTitle, text}:AddEditProps) => {
+const AddEditArticle = ({title}:ComponentTitle) => {
+    const { register, handleSubmit } = useForm()
     const { close } = useModal()
+
+    const onSubmitForm:SubmitHandler<AdsFormProps> = (data) => {
+        console.log(data);
+    }
 
     return (
         <S.AddEditContent>
-            <S.AddEditTitle>{modalTitle}</S.AddEditTitle>
+            <S.AddEditTitle>{title}</S.AddEditTitle>
             <CloseModalButton handler={close}/>
-            <S.AddEditForm>
+            <S.AddEditForm onSubmit={handleSubmit(onSubmitForm)}>
                 <S.FormBlock>
-                    <S.FormBlockLabel htmlFor='name'>Название</S.FormBlockLabel>
+                    <S.FormBlockLabel htmlFor='ads_title'>Название</S.FormBlockLabel>
                     <S.FormBlockInput 
-                        name='name'
+                        {...register("ads_title")}
                         placeholder="Введите название"
-                    >
-                        {artTitle}
-                    </S.FormBlockInput>
+                    />
                 </S.FormBlock>
                 <S.FormBlock>
                     <S.FormBlockLabel htmlFor='text'>Описание</S.FormBlockLabel>
                     <S.FormBlockArea
-                        name='text'
+                        {...register("text")}
                         placeholder="Введите описание"
-                    >
-                        {text}
-                    </S.FormBlockArea>
+                    />
                 </S.FormBlock>
                 <S.FormBlock>
-                    <S.ImagesTitle>
+                    <S.ImagesTitle htmlFor='images'>
                         Фотографии товара<S.ImagesTitleSpan>не более 5 фотографий</S.ImagesTitleSpan>
                     </S.ImagesTitle>
-                    <S.ImagesBar>
-                        <ImagesBarItem />
-                    </S.ImagesBar>
+                    <NewAdsImageBar /> 
                 </S.FormBlock>
                 <S.FormBlock>
                     <S.FormBlockLabel htmlFor='price'>Цена</S.FormBlockLabel>
                     <S.FormBlockInputPrice
-                        name='price'
-                    ></S.FormBlockInputPrice>
+                       {...register('price')}
+                       type="number"
+                    />
                 </S.FormBlock>
                 <PublishButton />
             </S.AddEditForm>

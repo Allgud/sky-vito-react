@@ -86,7 +86,7 @@ export const FormBlockArea = styled.textarea`
     }
 `
 
-export const ImagesTitle = styled.p`
+export const ImagesTitle = styled.label`
     font-size: 16px;
     line-height: 24px;
     color: #000000; 
@@ -98,11 +98,12 @@ export const ImagesTitleSpan = styled.span`
     color: rgba(0, 0, 0, 0.3);
 `
 
-export const ImagesBar = styled.div`
+export const ImagesBar = styled.fieldset`
     width: 500px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
     overflow: hidden;
+    border: none;
 `
