@@ -16,22 +16,22 @@ const Header = () => {
         <S.Header>
             <S.HeaderNav>
                 {
-                    isAuth 
-                    ? 
-                    <>
-                        <HeaderButton id="addArt" title="Разместить объявление" action={getModal}/>
-                        <Link to="/profile">
-                            <HeaderButton id="link" title='Личный кабинет' action={() => dispatch(getCurrentUser())}/>
-                        </Link>
-                        <Link to="/">
-                            <HeaderButton id="logout" title='Выйти' action={() => dispatch(logout())}/> 
-                        </Link>  
-                    </>
-                    : <HeaderButton 
-                        id="signin" 
-                        title="Вход в личный кабинет"
-                        action={getModal}
-                    />
+                    isAuth
+                        ?
+                        <>
+                            <HeaderButton id="addArt" title="Разместить объявление" action={getModal} />
+                            <Link to="/profile">
+                                <HeaderButton id="link" title='Личный кабинет' action={() => { }} />
+                            </Link>
+                            <Link to="/">
+                                <HeaderButton id="logout" title='Выйти' action={() => dispatch(logout())} />
+                            </Link>
+                        </>
+                        : <HeaderButton
+                            id="signin"
+                            title="Вход в личный кабинет"
+                            action={getModal}
+                        />
                 }
             </S.HeaderNav>
         </S.Header>

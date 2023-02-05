@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ImagesBar = styled.fieldset`
+export const ImagesBar = styled.div`
     width: 500px;
     margin-bottom: 10px;
     overflow: hidden;

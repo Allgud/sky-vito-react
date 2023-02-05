@@ -17,8 +17,8 @@ interface MContext {
 export const ModalContext = createContext<MContext>({
     active: false,
     currentModal: <></>,
-    close: () => {},
-    getModal: () => {}
+    close: () => { },
+    getModal: () => { }
 })
 
 const ModalProvider = ({ children }: ContextChildren) => {
@@ -29,7 +29,7 @@ const ModalProvider = ({ children }: ContextChildren) => {
 
     const getModal = (evt: MouseEvent) => {
         const id = evt.currentTarget.id
-        
+
         if (id === 'link') {
             return
         }
@@ -41,6 +41,9 @@ const ModalProvider = ({ children }: ContextChildren) => {
         }
         if (id === 'addArt') {
             setCurrentModal(<AddEditArticle title="Новое объявление" />)
+        }
+        if (id === "user_article") {
+            setCurrentModal(<AddEditArticle title="Редактировать объявление" />)
         }
         setActive(true)
     }

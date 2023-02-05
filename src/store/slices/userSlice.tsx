@@ -3,19 +3,19 @@ import axios from 'axios'
 import { api } from "../../http";
 import { AuthData, FormValues, User, UserState, ProfileFormValues, Good } from "../../types";
 
-export const createUser = createAsyncThunk<User, FormValues, {rejectValue: string}>(
+export const createUser = createAsyncThunk<User, FormValues, { rejectValue: string }>(
     'user/createUser',
     async function (data) {
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, 
-        JSON.stringify(data))
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`,
+            JSON.stringify(data))
 
         return response.data
     }
 )
 
-export const login = createAsyncThunk<AuthData, FormValues, {rejectValue: string}>(
+export const login = createAsyncThunk<AuthData, FormValues, { rejectValue: string }>(
     'user/login',
-    async function(data) {
+    async function (data) {
         const response = await axios.post(
             `${import.meta.env.VITE_API_URL}/auth/login`,
             JSON.stringify(data),
@@ -26,13 +26,13 @@ export const login = createAsyncThunk<AuthData, FormValues, {rejectValue: string
             }
         )
 
-        return response.data 
+        return response.data
     }
 )
 
-export const getCurrentUser = createAsyncThunk<User, undefined, {rejectValue: string}>(
+export const getCurrentUser = createAsyncThunk<User, undefined, { rejectValue: string }>(
     'user/getCurrentUser',
-    async function() {
+    async function () {
         const response = await api.get('/user')
 
         return response.data
@@ -55,7 +55,7 @@ export const checkIsAuth = createAsyncThunk<AuthData, undefined>(
 
 export const updateUserData = createAsyncThunk<User, ProfileFormValues>(
     'user/updateUserData',
-    async function(data) {
+    async function (data) {
         const response = await api.patch('/user', JSON.stringify(data), {
             headers: {
                 "Content-Type": "application/json"
@@ -66,27 +66,27 @@ export const updateUserData = createAsyncThunk<User, ProfileFormValues>(
     }
 )
 
-export const getUserAds = createAsyncThunk<Good[], undefined, {rejectValue: string}>(
+export const getUserAds = createAsyncThunk<Good[], undefined, { rejectValue: string }>(
     'user/getUserAds',
     async function () {
         const response = await api.get('/ads/me')
 
         return response.data
-    } 
-)
-
-export const changeUserAvatar = createAsyncThunk<User, FormData, {rejectValue: string}>(
-    'user/changeUserAvatar',
-    async function(data) {
-        const response = await api.post(
-            '/user/avatar', 
-            data
-        )
-        return response.data 
     }
 )
 
-const initialState:UserState = {
+export const changeUserAvatar = createAsyncThunk<User, FormData, { rejectValue: string }>(
+    'user/changeUserAvatar',
+    async function (data) {
+        const response = await api.post(
+            '/user/avatar',
+            data
+        )
+        return response.data
+    }
+)
+
+const initialState: UserState = {
     user: {} as User,
     isUser: true,
     isAuth: false,
@@ -122,7 +122,7 @@ const userSlice = createSlice({
                 state.isAuth = true
             })
             .addCase(getCurrentUser.fulfilled, (state, action) => {
-                state.user = {...action.payload}
+                state.user = { ...action.payload }
             })
             .addCase(updateUserData.fulfilled, (state, action) => {
                 state.user = JSON.parse(JSON.stringify(action.payload))
@@ -137,7 +137,7 @@ const userSlice = createSlice({
 })
 
 export default userSlice.reducer
-export const { 
-    changeIsUser, 
+export const {
+    changeIsUser,
     logout
 } = userSlice.actions

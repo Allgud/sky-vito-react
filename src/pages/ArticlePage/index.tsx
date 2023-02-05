@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import * as S from './styles'
 import PageMenu from '../../components/PageMenu'
 import ArticleImageBox from '../../components/ArticleImageBox'
@@ -10,9 +10,14 @@ import { useAppSelector } from '../../hooks/useAppSelector'
 import { dateFormatter, sellsFromFormat } from '../../helpers'
 
 const ArticlePage = () => {
-    const [isUserGood, setIsUserGood] = useState(false)
+    const [isUserGood, setUserGood] = useState(false)
     const { getModal } = useModal()
     const { currentGood, comments } = useAppSelector(state => state.ads)
+    const { user } = useAppSelector(state => state.user)
+
+    useEffect(() => {
+        setUserGood(() => currentGood?.user_id === user.id)
+    }, [currentGood])
 
     return (
         <S.ArticleBlock>
@@ -26,7 +31,7 @@ const ArticlePage = () => {
                             <S.ArticleDate>{currentGood && dateFormatter(currentGood.created_on)}</S.ArticleDate>
                             <S.ArticleCity>{currentGood && currentGood.user.city}</S.ArticleCity>
                             <S.ArticleLink
-                                id='reviews' 
+                                id='reviews'
                                 onClick={(evt) => getModal(evt)}
                             >
                                 {comments.length} отзывов
@@ -35,12 +40,12 @@ const ArticlePage = () => {
                         <S.ArticlePrice>{currentGood && currentGood.price} ₽</S.ArticlePrice>
                         {
                             isUserGood
-                            ? <UserArticleButtons />
-                            : <ShowPhoneButton phone={currentGood && currentGood.user.phone}/>  
+                                ? <UserArticleButtons />
+                                : <ShowPhoneButton phone={currentGood && currentGood.user.phone} />
                         }
                         <S.ArticleAuthor>
                             <S.ArticleAuthorImage>
-                                <S.ArticleAuthorImageImg src={`${import.meta.env.VITE_API_URL}/${currentGood?.user.avatar}`}/>
+                                <S.ArticleAuthorImageImg src={`${import.meta.env.VITE_API_URL}/${currentGood?.user.avatar}`} />
                             </S.ArticleAuthorImage>
                             <S.AuthorCont>
                                 <Link to={`/seller/${currentGood?.user.id}`}>
@@ -53,13 +58,13 @@ const ArticlePage = () => {
                 </S.ArticleRight>
             </S.ArticleContent>
             <S.ArticleDescriptionBlock>
-                    <S.ArticleDescriptionTitle>Описание товара</S.ArticleDescriptionTitle>
-                    <S.ArticleDescriptionContent>
-                        <S.ArticleDescriptionText>
-                           {currentGood && currentGood.description}
-                        </S.ArticleDescriptionText>
-                    </S.ArticleDescriptionContent>
-                </S.ArticleDescriptionBlock>
+                <S.ArticleDescriptionTitle>Описание товара</S.ArticleDescriptionTitle>
+                <S.ArticleDescriptionContent>
+                    <S.ArticleDescriptionText>
+                        {currentGood && currentGood.description}
+                    </S.ArticleDescriptionText>
+                </S.ArticleDescriptionContent>
+            </S.ArticleDescriptionBlock>
         </S.ArticleBlock>
     )
 }

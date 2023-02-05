@@ -7,7 +7,7 @@ import PageTitle from "../../components/PageTitle"
 import GoodCard from "../../components/GoodCard"
 import * as S from './styles'
 import { createLink } from "../../helpers"
-import { checkIsAuth } from "../../store/slices/userSlice"
+import { checkIsAuth, getCurrentUser } from "../../store/slices/userSlice"
 import NoDataBlock from "../../components/NoDataBlock"
 
 const MainPage = () => {
@@ -15,10 +15,11 @@ const MainPage = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        if(localStorage.getItem('token')) {
+        if (localStorage.getItem('token')) {
             dispatch(checkIsAuth())
         }
         dispatch(getAllAds())
+        dispatch(getCurrentUser())
     }, [])
 
     return (
@@ -30,23 +31,23 @@ const MainPage = () => {
                     <S.ContentCards>
                         {
                             appGoods.length
-                            ? appGoods.map(good => (
-                                <GoodCard
-                                    key={good.id} 
-                                    title={good.title}
-                                    price={good.price}
-                                    date={good.created_on}
-                                    place={good.user.city}
-                                    imgUrl={createLink(good.images)}
-                                    id={good.id}
-                                />
+                                ? appGoods.map(good => (
+                                    <GoodCard
+                                        key={good.id}
+                                        title={good.title}
+                                        price={good.price}
+                                        date={good.created_on}
+                                        place={good.user.city}
+                                        imgUrl={createLink(good.images)}
+                                        id={good.id}
+                                    />
                                 ))
-                            : <NoDataBlock title="Нет совпадений"/>
+                                : <NoDataBlock title="Нет совпадений" />
                         }
                     </S.ContentCards>
                 </S.MainContent>
             </S.MainContainer>
-        </>  
+        </>
     )
 }
 

@@ -29,7 +29,7 @@ export type Good = {
     price: number,
     id: number,
     images: GoodImage[],
-    userId: number,
+    user_id: number,
     created_on: string,
     user: User,
 }
@@ -86,4 +86,21 @@ export type SellerState = {
 
 export type ComponentTitle = {
     title: string
+}
+
+export type AdsFormProps = {
+    ads_title: string,
+    text: string,
+    price: string,
+    data?: Array<File>
+}
+
+export type ExtAdsFormProps = {
+    body: AdsFormProps,
+    id: number
+}
+
+export type ExtAdsImage = {
+    formdata: FormData,
+    id: number
 }

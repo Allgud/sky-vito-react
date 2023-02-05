@@ -39,3 +39,8 @@ export const debounce = (cb:Function):Function => {
     }
 }
 
+export const getCurrentsAdsId = (pathname:string):number => {
+    const id = pathname.split('/').splice(-1)
+    return Number([...id])
+}
+

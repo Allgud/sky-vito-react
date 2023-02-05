@@ -2,34 +2,34 @@ import * as S from './styles'
 import { ChangeEvent, useRef } from 'react'
 
 type ButtonProps = {
-    addPreview: (args0:string) => void,
+    addPreview: (args0: string) => void,
     visible: boolean
 }
 
-const AddPictureButton = ({addPreview, visible}:ButtonProps) => {
+const AddPictureButton = ({ addPreview, visible }: ButtonProps) => {
     const filePicker = useRef<HTMLInputElement>(null)
 
     const handlePick = () => {
-        if(filePicker.current) {
+        if (filePicker.current) {
             filePicker.current.click()
         }
     }
 
-    const onAddPicture = (evt:ChangeEvent<HTMLInputElement>) => {
-       if(evt.target.files?.length) {
-        const link = URL.createObjectURL(evt.target.files[0])
-        addPreview(link)
-       }
+    const onAddPicture = (evt: ChangeEvent<HTMLInputElement>) => {
+        if (evt.target.files?.length) {
+            const link = URL.createObjectURL(evt.target.files[0])
+            addPreview(link)
+        }
     }
 
     return (
         <S.AddImageButtonBlock $visible={visible}>
-            <S.AddImageButton 
+            <S.AddImageButton
                 onClick={handlePick}
                 type="button"
             />
             <S.AddPictureInput
-                type="file" 
+                type="file"
                 ref={filePicker}
                 onChange={(evt) => onAddPicture(evt)}
             />

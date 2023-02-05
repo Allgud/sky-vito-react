@@ -15,7 +15,6 @@ const NewAdsImageBar = () => {
         if(images.length >= import.meta.env.VITE_MAX_IMAGES_COUNT) {
             setVisible(false)
         }
-        return () => setVisible(true)
     }, [images])
 
     return(

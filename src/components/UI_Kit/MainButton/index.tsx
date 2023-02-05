@@ -4,7 +4,8 @@ type ButtonProps = {
     title: string,
 }
 
-const MainButton = ({title}:ButtonProps) => {
+const MainButton = ({ title }: ButtonProps) => {
+
     return (
         <S.MainButton>{title}</S.MainButton>
     )
