@@ -1,6 +1,6 @@
 import * as S from './styles'
 import MainButton from '../UI_Kit/MainButton'
-import { removeAds } from '../../store/slices/adsSlice'
+import { removeAds } from '../../store/slices/userSlice'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { getCurrentsAdsId } from '../../helpers'
 import { useLocation, useNavigate } from 'react-router'

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { api } from '../../http'
-import { Good, AdsState, Comment, AdsFormProps, ExtAdsFormProps, ExtAdsImage } from '../../types'
+import { Good, AdsState, Comment, ExtAdsFormProps, ExtAdsImage, CreateAdsProps, CommentData } from '../../types'
 
 const initialState: AdsState = {
     allGoods: [],
@@ -54,24 +54,6 @@ export const getSellerGoods = createAsyncThunk<Good[], number, { rejectValue: st
     }
 )
 
-export const createNewAds = createAsyncThunk<Good, AdsFormProps, { rejectValue: string }>(
-    'ads/createNewAds',
-    async function (props) {
-        const response = await api.post('/ads',
-            {
-                body: props.data
-            },
-            {
-                params: {
-                    title: props.ads_title,
-                    description: props.text,
-                    price: props.price
-                },
-            })
-        return response.data
-    }
-)
-
 export const editAds = createAsyncThunk<Good, ExtAdsFormProps, { rejectValue: string }>(
     'ads/editAds',
     async function (adsData) {
@@ -102,10 +84,14 @@ export const addAdsImage = createAsyncThunk<Good, ExtAdsImage, { rejectValue: st
     }
 )
 
-export const removeAds = createAsyncThunk<string, number, { rejectValue: string }>(
-    'ads/removeAds',
-    async function (id) {
-        const response = await api.delete(`${import.meta.env.VITE_API_URL}/ads/${id}`)
+export const addComment = createAsyncThunk<Comment, CommentData, { rejectValue: string }>(
+    'ads/addComment',
+    async function (commentData) {
+        const response = await api.post(
+            `/ads/${commentData.id}/comments`,
+            { text: commentData.text }
+        )
+
         return response.data
     }
 )
@@ -133,14 +119,14 @@ const adsSlice = createSlice({
             .addCase(getSellerGoods.fulfilled, (state, action) => {
                 state.sellerGoods = action.payload
             })
-            .addCase(createNewAds.fulfilled, (state, action) => {
-                console.log(action.payload);
-            })
             .addCase(editAds.fulfilled, (state, action) => {
                 state.currentGood = action.payload
             })
             .addCase(addAdsImage.fulfilled, (state, action) => {
                 state.currentGood = action.payload
+            })
+            .addCase(addComment.fulfilled, (state, action) => {
+                state.comments.push(action.payload)
             })
     }
 })

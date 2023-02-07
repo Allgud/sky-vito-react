@@ -2,10 +2,7 @@ import { useState, createContext, ReactNode, MouseEvent, useEffect } from "react
 import AddEditArticle from "../components/Modals/AddEditArticle";
 import Reviews from "../components/Modals/Reviews";
 import SignIn from "../components/Modals/SignIn";
-
-type ContextChildren = {
-    children: ReactNode
-}
+import { ComponentChildren } from "../types";
 
 interface MContext {
     active: boolean,
@@ -21,7 +18,7 @@ export const ModalContext = createContext<MContext>({
     getModal: () => { }
 })
 
-const ModalProvider = ({ children }: ContextChildren) => {
+const ModalProvider = ({ children }: ComponentChildren) => {
     const [active, setActive] = useState(false)
     const [currentModal, setCurrentModal] = useState(<></>)
 

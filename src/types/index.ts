@@ -1,3 +1,5 @@
+import { ReactNode } from "react"
+
 export type GoodImage = {
     id: number,
     adId: number,
@@ -8,7 +10,8 @@ export type Comment = {
     author: User,
     created_on: string,
     id: number,
-    text: string
+    text: string,
+    avatar: User
 }
 
 export type User = {
@@ -91,8 +94,12 @@ export type ComponentTitle = {
 export type AdsFormProps = {
     ads_title: string,
     text: string,
-    price: string,
-    data?: Array<File>
+    price: string
+}
+
+export type CreateAdsProps = {
+    data: AdsFormProps,
+    array: Array<FormData>
 }
 
 export type ExtAdsFormProps = {
@@ -102,5 +109,14 @@ export type ExtAdsFormProps = {
 
 export type ExtAdsImage = {
     formdata: FormData,
+    id: number
+}
+
+export type ComponentChildren = {
+    children: ReactNode
+}
+
+export type CommentData = {
+    text: string,
     id: number
 }

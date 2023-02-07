@@ -1,7 +1,16 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
 import { api } from "../../http";
-import { AuthData, FormValues, User, UserState, ProfileFormValues, Good } from "../../types";
+import {
+    AuthData,
+    FormValues,
+    User,
+    UserState,
+    ProfileFormValues,
+    Good,
+    CreateAdsProps,
+    AdsState
+} from "../../types";
 
 export const createUser = createAsyncThunk<User, FormValues, { rejectValue: string }>(
     'user/createUser',
@@ -86,6 +95,35 @@ export const changeUserAvatar = createAsyncThunk<User, FormData, { rejectValue: 
     }
 )
 
+export const createNewAds = createAsyncThunk<Good, CreateAdsProps, { rejectValue: string, state: { ads: AdsState } }>(
+    'ads/createNewAds',
+    async function (props, { getState }) {
+        const state = getState()
+        const response = await api.post(
+            '/ads',
+            props.array,
+            {
+                params: {
+                    title: props.data.ads_title,
+                    description: props.data.text,
+                    price: props.data.price
+                },
+            })
+
+        state.ads.appGoods.push(response.data)
+        return response.data
+    }
+)
+
+export const removeAds = createAsyncThunk<string, number, { rejectValue: string }>(
+    'ads/removeAds',
+    async function (id) {
+        const response = await api.delete(`${import.meta.env.VITE_API_URL}/ads/${id}`)
+
+        return response.data
+    }
+)
+
 const initialState: UserState = {
     user: {} as User,
     isUser: true,
@@ -132,6 +170,9 @@ const userSlice = createSlice({
             })
             .addCase(changeUserAvatar.fulfilled, (state, action) => {
                 state.user.avatar = action.payload.avatar
+            })
+            .addCase(createNewAds.fulfilled, (state, action) => {
+                state.userGoods.push(action.payload)
             })
     }
 })

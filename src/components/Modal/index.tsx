@@ -1,11 +1,8 @@
 import { ReactNode } from 'react'
 import * as S from './styles'
+import { ComponentChildren } from '../../types'
 
-type ModalChildren = {
-    children: ReactNode
-}
-
-const Modal = ({children}:ModalChildren) => {
+const Modal = ({ children }: ComponentChildren) => {
     return (
         <S.Modal>
             <S.ModalContent>

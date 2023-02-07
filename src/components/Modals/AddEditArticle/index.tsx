@@ -5,20 +5,30 @@ import PublishButton from '../../UI_Kit/PublishButton';
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ComponentTitle, AdsFormProps } from '../../../types';
 import NewAdsImageBar from '../../NewAdsImageBar';
-import { createNewAds, editAds } from '../../../store/slices/adsSlice';
+import { editAds } from '../../../store/slices/adsSlice';
 import { useAppDispatch } from '../../../hooks/useAppDispatch';
 import { useEffect } from 'react';
 import { useAppSelector } from '../../../hooks/useAppSelector';
+import { useImgCollector } from '../../../hooks/useImgCollector';
+import { createNewAds } from '../../../store/slices/userSlice';
 
 const AddEditArticle = ({ title }: ComponentTitle) => {
-    const { register, handleSubmit, setValue } = useForm()
+    const { register, handleSubmit, setValue } = useForm<AdsFormProps>()
     const { close } = useModal()
     const dispatch = useAppDispatch()
     const { currentGood } = useAppSelector(state => state.ads)
+    const { files } = useImgCollector()
 
     const onFormSubmit: SubmitHandler<AdsFormProps> = (data) => {
         if (title === "Новое объявление") {
-            dispatch(createNewAds(data))
+            const array = []
+
+            for (let i = 0; i < files.length; i++) {
+                const formdata = new FormData()
+                formdata.append(`file`, files[i])
+                array.push(formdata)
+            }
+            dispatch(createNewAds({ data, array }))
         }
 
         if (title === "Редактировать объявление") {
@@ -35,10 +45,10 @@ const AddEditArticle = ({ title }: ComponentTitle) => {
     }
 
     useEffect(() => {
-        if (title === "Редактировать объявление") {
-            setValue("ads_title", currentGood?.title)
-            setValue("text", currentGood?.description)
-            setValue("price", currentGood?.price)
+        if (currentGood && title === "Редактировать объявление") {
+            setValue("ads_title", currentGood.title)
+            setValue("text", currentGood.description)
+            setValue("price", currentGood.price.toString())
         }
     }, [])
 

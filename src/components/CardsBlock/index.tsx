@@ -10,26 +10,26 @@ import { Good, ComponentTitle } from '../../types'
 import { getSellerGoods } from '../../store/slices/adsSlice'
 import NoDataBlock from '../NoDataBlock'
 
-const CardsBlock = ({title}:ComponentTitle) => {
+const CardsBlock = ({ title }: ComponentTitle) => {
     const [array, setArray] = useState<Good[]>([])
     const location = useLocation()
     const dispatch = useAppDispatch()
-    const { userGoods }= useAppSelector(state => state.user)
+    const { userGoods } = useAppSelector(state => state.user)
     const { sellerGoods } = useAppSelector(state => state.ads)
     const params = useParams()
 
     useEffect(() => {
-        if(location.pathname === '/profile') {
+        if (location.pathname === '/profile') {
             dispatch(getUserAds())
             return
         }
 
-        if(location.pathname.includes('/seller')) {
+        if (location.pathname.includes('/seller')) {
             dispatch(getSellerGoods(Number(params.id)))
             return
         }
     }, [])
-    
+
     useEffect(() => {
         setArray(userGoods)
     }, [userGoods])
@@ -38,15 +38,15 @@ const CardsBlock = ({title}:ComponentTitle) => {
         setArray(sellerGoods)
     }, [sellerGoods])
 
-    return(
+    return (
         <>
             <S.BlockTitle>{title}</S.BlockTitle>
             <S.CardsList>
                 {
-                    array.length 
+                    array.length
                         ? array.map(good => (
                             <GoodCard
-                                key={good.id} 
+                                key={good.id}
                                 imgUrl={createLink(good.images)}
                                 title={good.title}
                                 price={good.price}
@@ -54,10 +54,10 @@ const CardsBlock = ({title}:ComponentTitle) => {
                                 id={good.id}
                                 place={good.user.city}
                             />
-                          ))
-                          : <NoDataBlock title="Пока нет товаров"/>
+                        ))
+                        : <NoDataBlock title="Пока нет товаров" />
                 }
-                         
+
             </S.CardsList>
         </>
     )

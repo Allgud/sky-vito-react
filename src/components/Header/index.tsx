@@ -5,7 +5,6 @@ import { useAppSelector } from '../../hooks/useAppSelector'
 import { logout } from '../../store/slices/userSlice'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
 import useModal from '../../hooks/useModal'
-import { getCurrentUser } from '../../store/slices/userSlice'
 
 const Header = () => {
     const { isAuth } = useAppSelector(state => state.user)

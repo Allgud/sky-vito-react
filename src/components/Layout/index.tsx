@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import useModal from '../../hooks/useModal'
+import ImgCollectorProvider from '../../provider/ImgCollectorProvider'
 import Header from '../Header'
 import Modal from '../Modal'
 import * as S from './styles.js'
@@ -13,7 +14,10 @@ const Layout = () => {
                 <S.Main>
                     <Outlet />
                     {
-                        active && <Modal>{currentModal}</Modal>
+                        active &&
+                        <ImgCollectorProvider>
+                            <Modal>{currentModal}</Modal>
+                        </ImgCollectorProvider>
                     }
                 </S.Main>
             </S.Container>
