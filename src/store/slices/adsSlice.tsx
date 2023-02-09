@@ -1,18 +1,15 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { api } from '../../http'
-import { Good, AdsState, Comment, ExtAdsFormProps, ExtAdsImage, CreateAdsProps, CommentData } from '../../types'
-
-const initialState: AdsState = {
-    allGoods: [],
-    appGoods: [],
-    loading: false,
-    error: null,
-    currentGood: null,
-    comments: [],
-    sellerGoods: [],
-    isUserGood: false
-}
+import { pageMapper } from '../../helpers'
+import {
+    Good,
+    AdsState,
+    Comment,
+    ExtAdsFormProps,
+    ExtAdsImage,
+    CommentData
+} from '../../types'
 
 export const getAllAds = createAsyncThunk<Good[], undefined, { rejectValue: string }>(
     "ads/getAllAds",
@@ -96,19 +93,34 @@ export const addComment = createAsyncThunk<Comment, CommentData, { rejectValue: 
     }
 )
 
+const initialState: AdsState = {
+    allGoods: [],
+    appGoods: [],
+    loading: false,
+    error: null,
+    currentGood: null,
+    comments: [],
+    sellerGoods: [],
+    isUserGood: false
+}
+
 const adsSlice = createSlice({
     name: 'ads',
     initialState,
     reducers: {
         filterByText(state, action: PayloadAction<string>) {
             state.appGoods = state.allGoods.filter(el => el.title.toLowerCase().startsWith(action.payload.toLowerCase()))
+        },
+        switchPage(state, action: PayloadAction<number>) {
+            const edges = pageMapper[action.payload - 1]
+            state.appGoods = state.allGoods.slice(edges[0], edges[1])
         }
     },
     extraReducers: (builder) => {
         builder
             .addCase(getAllAds.fulfilled, (state, action) => {
                 state.allGoods = action.payload
-                state.appGoods = action.payload
+                state.appGoods = action.payload.slice(0, 8)
             })
             .addCase(getCurrentAds.fulfilled, (state, action) => {
                 state.currentGood = action.payload
@@ -132,4 +144,4 @@ const adsSlice = createSlice({
 })
 
 export default adsSlice.reducer
-export const { filterByText } = adsSlice.actions
+export const { filterByText, switchPage } = adsSlice.actions

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { NavLink } from 'react-router-dom'
 
 export const PageMenu = styled.div`
     width: 100%;
@@ -11,7 +10,7 @@ export const PageMenu = styled.div`
     padding: 31px 10px 64px;
 `
 
-export const ButtonBox = styled(NavLink)`
+export const ButtonBox = styled.div`
     margin-left: 60px;        
     max-width: 1044px;
     width: 100%; 

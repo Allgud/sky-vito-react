@@ -14,14 +14,14 @@ type GoodsPropTypes = {
     id: number
 }
 
-const GoodCard = ({ imgUrl, title, price, place, date, id}: GoodsPropTypes) => {
+const GoodCard = ({ imgUrl, title, price, place, date, id }: GoodsPropTypes) => {
     const dispatch = useAppDispatch()
 
     const handleClick = () => {
         dispatch(getCurrentAds(id))
         dispatch(getAdsComments(id))
     }
-    
+
     return (
         <S.CardItem>
             <S.Card>

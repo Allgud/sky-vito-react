@@ -1,4 +1,4 @@
-import { GoodImage, FormValues } from "../types"
+import { GoodImage } from "../types"
 import { format, formatRelative } from "date-fns";
 import { ru } from "date-fns/locale";
 
@@ -43,4 +43,16 @@ export const getCurrentsAdsId = (pathname:string):number => {
     const id = pathname.split('/').splice(-1)
     return Number([...id])
 }
+
+export const createPaginationRow = (length: number):Array<number> => {
+    const count = Math.ceil(length / import.meta.env.VITE_CARDS_PAGE_COUNT)
+    return [...Array(count).keys()].map(el => el + 1)
+}
+
+export const pageMapper = [
+    [0, 8],
+    [8, 16],
+    [16, 24]
+]
+
 

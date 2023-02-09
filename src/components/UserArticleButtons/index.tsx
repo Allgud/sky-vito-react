@@ -5,6 +5,7 @@ import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { getCurrentsAdsId } from '../../helpers'
 import { useLocation, useNavigate } from 'react-router'
 import useModal from '../../hooks/useModal'
+import { SyntheticEvent } from 'react'
 
 const UserArticleButtons = () => {
     const dispatch = useAppDispatch()
@@ -12,8 +13,8 @@ const UserArticleButtons = () => {
     const { getModal } = useModal()
     const navigate = useNavigate()
 
-    const clickHandler = (evt: React.MouseEvent<Element, MouseEvent>) => {
-        const btnTitle = evt.target.innerText
+    const clickHandler = (evt: SyntheticEvent) => {
+        const btnTitle = (evt.target as HTMLDivElement).innerText
 
         if (btnTitle === "Снять с публикации") {
             dispatch(removeAds(getCurrentsAdsId(location.pathname)))

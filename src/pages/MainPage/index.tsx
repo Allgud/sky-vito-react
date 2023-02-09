@@ -1,26 +1,14 @@
-import { useEffect } from "react"
-import { getAllAds } from "../../store/slices/adsSlice"
 import { useAppSelector } from "../../hooks/useAppSelector"
-import { useAppDispatch } from "../../hooks/useAppDispatch"
 import SearchBox from "../../components/SearchBox"
 import PageTitle from "../../components/PageTitle"
 import GoodCard from "../../components/GoodCard"
 import * as S from './styles'
 import { createLink } from "../../helpers"
-import { checkIsAuth, getCurrentUser } from "../../store/slices/userSlice"
 import NoDataBlock from "../../components/NoDataBlock"
+import Paginator from "../../components/Paginator"
 
 const MainPage = () => {
     const { appGoods } = useAppSelector(state => state.ads)
-    const dispatch = useAppDispatch()
-
-    useEffect(() => {
-        if (localStorage.getItem('token')) {
-            dispatch(checkIsAuth())
-        }
-        dispatch(getAllAds())
-        dispatch(getCurrentUser())
-    }, [])
 
     return (
         <>
@@ -47,6 +35,7 @@ const MainPage = () => {
                     </S.ContentCards>
                 </S.MainContent>
             </S.MainContainer>
+            <Paginator />
         </>
     )
 }

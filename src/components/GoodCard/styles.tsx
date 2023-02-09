@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CardItem = styled.li`
+export const CardItem = styled.div`
     margin: 0;
 `
 

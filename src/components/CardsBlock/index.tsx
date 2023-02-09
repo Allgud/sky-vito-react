@@ -9,6 +9,7 @@ import { createLink } from '../../helpers'
 import { Good, ComponentTitle } from '../../types'
 import { getSellerGoods } from '../../store/slices/adsSlice'
 import NoDataBlock from '../NoDataBlock'
+import Carousel from 'better-react-carousel'
 
 const CardsBlock = ({ title }: ComponentTitle) => {
     const [array, setArray] = useState<Good[]>([])
@@ -41,27 +42,31 @@ const CardsBlock = ({ title }: ComponentTitle) => {
     return (
         <>
             <S.BlockTitle>{title}</S.BlockTitle>
-            <S.CardsList>
-                {
-                    array.length
-                        ? array.map(good => (
-                            <GoodCard
-                                key={good.id}
-                                imgUrl={createLink(good.images)}
-                                title={good.title}
-                                price={good.price}
-                                date={good.created_on}
-                                id={good.id}
-                                place={good.user.city}
-                            />
-                        ))
-                        : <NoDataBlock title="Пока нет товаров" />
-                }
-
-            </S.CardsList>
+            {
+                array.length
+                    ? <Carousel cols={4} gap={18}>
+                        {
+                            array.map(good => (
+                                <Carousel.Item key={good.id}>
+                                    <GoodCard
+                                        imgUrl={createLink(good.images)}
+                                        title={good.title}
+                                        price={good.price}
+                                        date={good.created_on}
+                                        id={good.id}
+                                        place={good.user.city}
+                                    />
+                                </Carousel.Item>
+                            ))
+                        }
+                    </Carousel>
+                    : <NoDataBlock title="Пока нет товаров" />
+            }
         </>
     )
 }
 
 export default CardsBlock
+
+
 

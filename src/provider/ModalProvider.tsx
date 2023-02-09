@@ -1,4 +1,4 @@
-import { useState, createContext, ReactNode, MouseEvent, useEffect } from "react";
+import { useState, createContext, ReactNode, MouseEvent, useEffect, SyntheticEvent } from "react";
 import AddEditArticle from "../components/Modals/AddEditArticle";
 import Reviews from "../components/Modals/Reviews";
 import SignIn from "../components/Modals/SignIn";
@@ -8,7 +8,7 @@ interface MContext {
     active: boolean,
     currentModal: ReactNode,
     close: () => void,
-    getModal: (arg0: MouseEvent) => void
+    getModal: (arg0: SyntheticEvent) => void
 }
 
 export const ModalContext = createContext<MContext>({
@@ -24,7 +24,7 @@ const ModalProvider = ({ children }: ComponentChildren) => {
 
     const closeModal = () => setActive(false)
 
-    const getModal = (evt: MouseEvent) => {
+    const getModal = (evt: SyntheticEvent) => {
         const id = evt.currentTarget.id
 
         if (id === 'link') {
