@@ -101,8 +101,11 @@ export const createNewAds = createAsyncThunk<Good, CreateAdsProps, { rejectValue
         const state = getState()
         const response = await api.post(
             '/ads',
-            props.array,
+            props.formdata,
             {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                },
                 params: {
                     title: props.data.ads_title,
                     description: props.data.text,
@@ -110,7 +113,6 @@ export const createNewAds = createAsyncThunk<Good, CreateAdsProps, { rejectValue
                 },
             })
 
-        state.ads.appGoods.push(response.data)
         return response.data
     }
 )
@@ -172,6 +174,7 @@ const userSlice = createSlice({
                 state.user.avatar = action.payload.avatar
             })
             .addCase(createNewAds.fulfilled, (state, action) => {
+                console.log(action.payload)
                 state.userGoods.push(action.payload)
             })
     }

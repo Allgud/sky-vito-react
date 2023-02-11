@@ -99,7 +99,7 @@ export type AdsFormProps = {
 
 export type CreateAdsProps = {
     data: AdsFormProps,
-    array: Array<FormData>
+    formdata: FormData
 }
 
 export type ExtAdsFormProps = {

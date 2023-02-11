@@ -1,14 +1,15 @@
 import * as S from './styles'
 import { ChangeEvent, useRef } from 'react'
 import { useImgCollector } from '../../../hooks/useImgCollector'
+import { useReference } from '../../../hooks/useReference'
 
 const AddPictureButton = () => {
-    const filePicker = useRef<HTMLInputElement>(null)
-    const { visible, addPicToLocal, getFiles } = useImgCollector()
+    const { visible, addPicToLocal } = useImgCollector()
+    const { inputRef } = useReference()
 
     const handlePick = () => {
-        if (filePicker.current) {
-            filePicker.current.click()
+        if (inputRef.current) {
+            inputRef.current.click()
         }
     }
 
@@ -21,7 +22,6 @@ const AddPictureButton = () => {
             }
         }
         addPicToLocal(images)
-        getFiles(evt)
     }
 
     return (
@@ -32,7 +32,7 @@ const AddPictureButton = () => {
             />
             <S.AddPictureInput
                 type="file"
-                ref={filePicker}
+                ref={inputRef}
                 onChange={(evt) => onAddPicture(evt)}
                 multiple
             />

@@ -9,26 +9,25 @@ import { editAds } from '../../../store/slices/adsSlice';
 import { useAppDispatch } from '../../../hooks/useAppDispatch';
 import { useEffect } from 'react';
 import { useAppSelector } from '../../../hooks/useAppSelector';
-import { useImgCollector } from '../../../hooks/useImgCollector';
 import { createNewAds } from '../../../store/slices/userSlice';
+import { useReference } from '../../../hooks/useReference'
 
 const AddEditArticle = ({ title }: ComponentTitle) => {
     const { register, handleSubmit, setValue } = useForm<AdsFormProps>()
     const { close } = useModal()
     const dispatch = useAppDispatch()
     const { currentGood } = useAppSelector(state => state.ads)
-    const { files } = useImgCollector()
+    const { inputRef } = useReference()
 
     const onFormSubmit: SubmitHandler<AdsFormProps> = (data) => {
         if (title === "Новое объявление") {
-            const array = []
-
+            const formdata = new FormData()
+            const files = inputRef.current.files
             for (let i = 0; i < files.length; i++) {
-                const formdata = new FormData()
-                formdata.append(`file`, files[i])
-                array.push(formdata)
+                formdata.append(`images[]`, files[i])
             }
-            dispatch(createNewAds({ data, array }))
+
+            dispatch(createNewAds({ data, formdata }))
         }
 
         if (title === "Редактировать объявление") {
