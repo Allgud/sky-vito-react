@@ -174,7 +174,6 @@ const userSlice = createSlice({
                 state.user.avatar = action.payload.avatar
             })
             .addCase(createNewAds.fulfilled, (state, action) => {
-                console.log(action.payload)
                 state.userGoods.push(action.payload)
             })
     }

@@ -23,10 +23,7 @@ const AddEditArticle = ({ title }: ComponentTitle) => {
         if (title === "Новое объявление") {
             const formdata = new FormData()
             const files = inputRef.current.files
-            for (let i = 0; i < files.length; i++) {
-                formdata.append(`images[]`, files[i])
-            }
-
+            formdata.append(`array`, files)
             dispatch(createNewAds({ data, formdata }))
         }
 
